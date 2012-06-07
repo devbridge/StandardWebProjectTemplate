@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<project name="TripBalticSupportUpdateDatabase" default="updateDatabase">
+
+  <target name="updateDatabase">
+      <manageSqlDatabase
+                       scriptDirectory="C:\Builds\StandardWebProjectTemplate_PRODUCTION\Code\DevBridge.Templates.WebProject.DatabaseChanges\"
+                       action="Update"
+                       server="ReplaceWithYourServer,1433"
+                       integratedAuthentication="false"
+                       database="DevBridgeTemplateWebProject"
+                       username="ReplaceWithYourUser"
+                       password="ReplaceWithYourPassword"
+                />
+  </target>  
+</project>

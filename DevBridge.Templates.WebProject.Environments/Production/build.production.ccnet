@@ -1,0 +1,99 @@
+<project>
+  <name>www.standardWebProjectTemplate.com</name>
+
+  <workingDirectory>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Code</workingDirectory>
+
+  <artifactDirectory>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Artifact</artifactDirectory>
+
+  <webURL>http://dev.server.com/ccnet/server/local/project/www.StandardWebProjectTemplate.com/ViewProjectReport.aspx</webURL>
+
+  <modificationDelaySeconds>10</modificationDelaySeconds>
+
+  <labeller type="assemblyVersionLabeller" incrementOnFailure="true" major="1" minor="2" />
+
+  <sourcecontrol type="vsts" autoGetSource="true" applyLabel="true">
+    <server>http://tfs.server.com:8080</server>
+    <username>ReplaceWithYourUser</username>
+    <password>ReplaceWithYourPassword</password>
+    <domain>ReplaceWithYourDomain</domain>
+    <project>PathToProject</project>
+    <force>true</force>
+    <workspace>DevCIS1-Workspace</workspace>
+  </sourcecontrol>
+
+  <triggers>
+    <!-- BUILD STARTS MANUALY! -->
+  </triggers>
+
+  <tasks>
+    <exec description="Build solution.">
+      <executable>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Code\DevBridge.Templates.WebProject.sln /nologo /t:Rebuild  /p:Configuration=Debug</buildArgs>
+      <buildTimeoutSeconds>300</buildTimeoutSeconds>
+    </exec>
+
+    <exec description="Build web project.">
+      <executable>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.Web\DevBridge.Templates.WebProject.Web.csproj /nologo /t:Rebuild  /p:Configuration=Debug   /t:ResolveReferences;_CopyWebApplication  /p:OutDir=C:\Builds\StandardWebProjectTemplate_PRODUCTION\temp\bin\     /p:WebProjectOutputDir=C:\Builds\StandardWebProjectTemplate_PRODUCTION\temp</buildArgs>
+      <buildTimeoutSeconds>300</buildTimeoutSeconds>
+    </exec>
+
+    <exec description="Update web project configuration files.">
+      <executable>xcopy</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Code\DevBridge.Templates.WebProject.Environments\Production\Web C:\Builds\StandardWebProjectTemplate_PRODUCTION\temp /Y /E</buildArgs>
+      <buildTimeoutSeconds>10</buildTimeoutSeconds>
+    </exec>
+
+    <exec description="Update version file.">
+      <buildArgs>/c echo version=%CCNetLabel% &gt; C:\Builds\StandardWebProjectTemplate_PRODUCTION\temp\version.information</buildArgs>
+      <executable>cmd</executable>
+      <buildTimeoutSeconds>10</buildTimeoutSeconds>
+    </exec>
+
+    <exec description="Backup database.">
+      <executable>cmd</executable>
+      <buildArgs>/c sqlcmd -S devsql1,1433 -U ReplaceWithYourUser -P ReplaceWithYourPassword -Q "BACKUP DATABASE [DevBridgeTemplateWebProject] TO DISK = N'C:\MSSQL\Backup\DevBridgeTemplateWebProject-%CCNetLabel%.bak' WITH NOFORMAT, NOINIT,  NAME = N'TripBaltic-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10"</buildArgs>
+      <buildTimeoutSeconds>600</buildTimeoutSeconds>
+    </exec>
+
+    <exec description="Move backuped database to DevCIS1 C:\Backups folder.">
+      <executable>cmd</executable>
+      <buildArgs>/c move /y \\devsql1\MSSQL-Backup$\DevBridgeTemplateWebProject-%CCNetLabel%.bak C:\Backups\StandardWebProjectTemplate\Database\</buildArgs>
+      <buildTimeoutSeconds>600</buildTimeoutSeconds>
+    </exec>
+
+    <exec description="Backup web project.">
+      <executable>cmd</executable>
+      <buildArgs>/c xcopy \\devserver5\web-production$\StandardWebProjectTemplate\standardWebProjectTemplate.com C:\Backups\StandardWebProjectTemplate\standardWebProjectTemplate.com\%CCNetLabel%\ /Y /E /R /Exclude:C:\Builds\StandardWebProjectTemplate_PRODUCTION\Code\DevBridge.Templates.WebProject.Environments\Production\standardWebProjectTemplate.com.backup.excludes.txt</buildArgs>
+      <buildTimeoutSeconds>300</buildTimeoutSeconds>
+    </exec>
+
+    <nant description="Update life database with new changes.">
+      <buildFile>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Code\DevBridge.Templates.WebProject.Environments\Production\update.database.nant.build</buildFile>
+      <nologo>false</nologo>
+    </nant>
+
+    <nant description="Update Globalization life database with new resources.">
+      <buildFile>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Code\DevBridge.Templates.WebProject.Environments\Production\update.globalization.nant.build</buildFile>
+      <nologo>false</nologo>
+    </nant>  
+
+    <exec description="Copy new web version.">
+      <executable>xcopy</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_PRODUCTION\temp \\devserver5\web-production$\StandardWebProjectTemplate\standardWebProjectTemplate.com /Y /E /R</buildArgs>
+      <buildTimeoutSeconds>300</buildTimeoutSeconds>
+    </exec>    
+  </tasks>
+
+  <publishers>
+    <merge>
+      <files>
+        <file>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Artifact\*-results.xml</file>
+        <file>C:\Builds\StandardWebProjectTemplate_PRODUCTION\Artifact\unittests\Coverage.xml</file>
+      </files>
+    </merge>
+    <xmllogger />
+    <statistics />
+  </publishers>
+
+</project>

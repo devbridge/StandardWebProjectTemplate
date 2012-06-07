@@ -1,0 +1,74 @@
+<project>
+  <name>StandardWebProjectTemplate DEV</name>
+
+  <workingDirectory>C:\Builds\StandardWebProjectTemplate_DEV\Code</workingDirectory>
+
+  <artifactDirectory>C:\Builds\StandardWebProjectTemplate_DEV\Artifact</artifactDirectory>
+
+  <webURL>http://devvm1.server.com/ccnet/server/local/project/StandardWebProjectTemplate%20DEV/ViewProjectReport.aspx</webURL>
+
+  <modificationDelaySeconds>10</modificationDelaySeconds>
+
+  <sourcecontrol type="vsts" autoGetSource="true">
+    <server>http://tfs.server.com:8080</server>
+    <username>ReplaceWithYourUser</username>
+    <password>ReplaceWithYourPassword</password>
+    <domain>ReplaceWithYourDomain</domain>
+    <project>PathToProject</project>
+    <force>true</force>
+  </sourcecontrol>
+
+  <triggers>
+    <intervalTrigger seconds="300" buildCondition="IfModificationExists"/>
+  </triggers>
+
+  <tasks>
+    <exec description="Build solution.">
+      <executable>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.sln /nologo /t:Rebuild  /p:Configuration=Debug</buildArgs>
+      <buildTimeoutSeconds>300</buildTimeoutSeconds>
+    </exec>
+
+    <nant description="Update database with new changes.">
+      <buildFile>C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.Environments\Development\update.database.nant.build</buildFile>
+      <nologo>false</nologo>
+    </nant>
+
+    <exec description="Update unit tests project configuration for development environment.">
+      <executable>xcopy</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.Environments\Development\Tests\Config C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.Tests\bin\debug\Config  /Y /E</buildArgs>
+      <buildTimeoutSeconds>10</buildTimeoutSeconds>
+    </exec>
+
+    <nunit description="Run unit tests.">
+      <path>C:\nUnit\bin\net-2.0\nunit-console.exe</path>
+      <assemblies>
+        <assembly>C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.Tests\bin\debug\DevBridge.Templates.WebProject.Tests.dll</assembly>
+      </assemblies>
+    </nunit>
+
+    <exec description="Build web project.">
+      <executable>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.Web\DevBridge.Templates.WebProject.Web.csproj /nologo /t:Rebuild  /p:Configuration=Debug   /t:ResolveReferences;_CopyWebApplication  /p:OutDir=C:\inetpub\wwwroot\StandardWebProjectTemplate\bin\     /p:WebProjectOutputDir=C:\inetpub\wwwroot\StandardWebProjectTemplate</buildArgs>
+      <buildTimeoutSeconds>300</buildTimeoutSeconds>
+    </exec>
+
+    <exec description="Update web project configuration files.">
+      <executable>xcopy</executable>
+      <buildArgs>C:\Builds\StandardWebProjectTemplate_DEV\Code\DevBridge.Templates.WebProject.Environments\Development\Web C:\inetpub\wwwroot\StandardWebProjectTemplate /Y /E</buildArgs>
+      <buildTimeoutSeconds>10</buildTimeoutSeconds>
+    </exec>
+  </tasks>
+
+  <publishers>
+    <merge>
+      <files>
+        <file>C:\Builds\StandardWebProjectTemplate_DEV\Artifact\*-results.xml</file>
+        <file>C:\Builds\StandardWebProjectTemplate_DEV\Artifact\unittests\Coverage.xml</file>
+      </files>
+    </merge>
+    <xmllogger />
+    <statistics />
+  </publishers>
+
+</project>

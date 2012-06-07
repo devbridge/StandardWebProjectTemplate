@@ -1,4 +1,4 @@
 StandardWebProjectTemplate
-==========================
+===========================
 
-Standard Web Project Template
+DevBridge Standard Web Project Template

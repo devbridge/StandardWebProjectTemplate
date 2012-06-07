@@ -1,6 +1,27 @@
-# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
-bin
-obj
+# Build and Object Folders
+bin/
+obj/
+Obj/
 
-# mstest test results
+#User Specific Files
+*.user
+*.suo
+*.userprefs
+*.pidb
+
+
+#Resource Caches
+_ReSharper.*
+*.sln.cache
+
+#Nuget
+packages
+
+#vim
+*~
+*.swp
+
+#unit tests
 TestResults
+test-results
+
