@@ -66,7 +66,7 @@ namespace DevBridge.Templates.WebProject.Data
             return UnitOfWork.Session.Query<TEntity>().Where(f => !f.IsDeleted).Where(filter).FirstOrDefault();
         }
 
-        public TEntity AsProxy(int id)
+        public TEntity CreateProxy(int id)
         {
             return UnitOfWork.Session.Load<TEntity>(id, LockMode.None);
         }

@@ -72,7 +72,9 @@
     <Content Include="Production\Web\Config\nlog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Staging\build.staging.ccnet" />
+    <None Include="Staging\build.staging.ccnet">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Staging\Tests\Config\hibernate-configuration.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

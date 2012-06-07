@@ -16,7 +16,7 @@ namespace DevBridge.Templates.WebProject.DataContracts
 
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter);
 
-        TEntity AsProxy(int id);
+        TEntity CreateProxy(int id);
 
         IQueryable<TEntity> AsQueryable();
 
