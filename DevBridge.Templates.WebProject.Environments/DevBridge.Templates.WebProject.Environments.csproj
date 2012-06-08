@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
@@ -64,8 +67,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Production\build.production.ccnet" />
-    <None Include="Production\update.database.nant.build" />
-    <None Include="Production\update.globalization.nant.build" />
+    <None Include="Production\update.database.nant.build">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Production\update.globalization.nant.build">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Production\Web\Config\hibernate-configuration.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

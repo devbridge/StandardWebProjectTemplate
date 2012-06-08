@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="IDataListingService.cs" />
     <Compile Include="IAgreementManagementService.cs" />
     <Compile Include="ICachingService.cs" />
