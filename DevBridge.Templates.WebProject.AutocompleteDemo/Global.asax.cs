@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure;
 using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.ModelBinders;
+using DevBridge.Templates.WebProject.AutocompleteDemo.Models.Shared;
 
 namespace DevBridge.Templates.WebProject.AutocompleteDemo
 {
@@ -39,7 +40,11 @@ namespace DevBridge.Templates.WebProject.AutocompleteDemo
 			AreaRegistration.RegisterAllAreas();
 
 			DependencyRegistrar.Register();
-			ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory()); 
+			//senasis budas
+			//ControllerBuilder.Current.SetControllerFactory(new StructureMapControllerFactory());
+
+			//naujasis budas
+			DependencyResolver.SetResolver(new StructureMapDependencyResolver());
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
