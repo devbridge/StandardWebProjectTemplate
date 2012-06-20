@@ -87,6 +87,7 @@
     <Compile Include="Infrastructure\Extenssions\UrlExtensions.cs" />
     <Compile Include="Infrastructure\ModelBinders\AutocompleteModelBinder.cs" />
     <Compile Include="Infrastructure\ModelBinders\TypeModelBinder.cs" />
+    <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Infrastructure\Tools\HtmlAttributeHelper.cs" />
     <Compile Include="Infrastructure\Tools\Js.cs" />
     <Compile Include="Infrastructure\Tools\NaturalComparer.cs" />

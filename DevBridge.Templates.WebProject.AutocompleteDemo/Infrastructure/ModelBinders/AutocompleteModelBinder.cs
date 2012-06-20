@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using DevBridge.Templates.WebProject.AutocompleteDemo.Models.Shared;
 
 namespace DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.ModelBinders
 {

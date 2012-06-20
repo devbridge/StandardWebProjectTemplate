@@ -1,0 +1,17 @@
+﻿/* validation style */
+input[type="text"].input-validation-error{
+	border: 1px solid #f00;
+	background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+	color: #f00;
+}
+
+.validation-summary-valid
+{
+	display: none;
+}
+
+

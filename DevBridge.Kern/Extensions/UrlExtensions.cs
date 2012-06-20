@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq.Expressions;
 using System.Web.Mvc;
-using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Tools;
+using DevBridge.Kern.Helpers;
 
-namespace DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Extenssions
+namespace DevBridge.Kern.Extensions
 {
 	public static class UrlExtensions
 	{
