@@ -76,6 +76,7 @@
     <Compile Include="Mvc\ServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleService\FoodUpdateService.cs" />
+    <Compile Include="SampleService\SampleFoodController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
