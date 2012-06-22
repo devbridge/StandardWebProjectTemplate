@@ -29,5 +29,13 @@ namespace DevBridge.Templates.WebProject.Common.Mvc
 				return failure();
 			}
 		}
+
+		protected override void HandleUnknownAction(string actionName)
+		{
+			//redirect to home index on unknown action
+			ViewBag.UnknownAction = true;
+			RedirectToAction("Index");
+			//base.HandleUnknownAction(actionName);
+		}
     }
 }
