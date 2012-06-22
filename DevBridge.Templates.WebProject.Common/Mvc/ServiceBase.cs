@@ -35,7 +35,7 @@ namespace DevBridge.Templates.WebProject.Common.Mvc
 				//tx.Commit();
 			//}
 		}
-
+		
 		protected abstract void ExecuteCommand();
 	}
 }

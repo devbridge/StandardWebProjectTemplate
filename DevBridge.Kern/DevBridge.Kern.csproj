@@ -61,6 +61,8 @@
     <Compile Include="Extensions\UrlExtensions.cs" />
     <Compile Include="Factories\AutocompleteDataSourceFactory.cs" />
     <Compile Include="Helpers\HtmlAttributeHelper.cs" />
+    <Compile Include="Infrastructure\ModelBinders\AutocompleteModelBinder.cs" />
+    <Compile Include="Infrastructure\ModelBinders\TypeModelBinder.cs" />
     <Compile Include="Infrastructure\StructureMapDependencyResolver.cs" />
     <Compile Include="Models\Shared\Autocomplete.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\devbridge-kern.css" />
+    <Content Include="Scripts\devbridge.kern.js" />
     <Content Include="Scripts\devbridge.validate.js" />
     <Content Include="Scripts\jquery.autocomplete-min.js" />
     <Content Include="Scripts\jquery.autocomplete.js" />

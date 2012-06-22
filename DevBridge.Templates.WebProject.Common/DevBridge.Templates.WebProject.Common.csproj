@@ -41,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.2.1.267\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -75,6 +78,11 @@
     <Compile Include="Mvc\ServiceBase.cs" />
     <Compile Include="Mvc\ServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleContracts\IEntity.cs" />
+    <Compile Include="SampleContracts\IFoodGetService.cs" />
+    <Compile Include="SampleContracts\IRepository.cs" />
+    <Compile Include="SampleEntities\FoodEntity.cs" />
+    <Compile Include="SampleModels\FoodViewModel.cs" />
     <Compile Include="SampleService\FoodUpdateService.cs" />
     <Compile Include="SampleService\SampleFoodController.cs" />
   </ItemGroup>
