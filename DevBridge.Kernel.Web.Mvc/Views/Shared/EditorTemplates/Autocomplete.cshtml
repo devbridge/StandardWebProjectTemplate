@@ -1,14 +1,18 @@
-﻿@using DevBridge.Templates.WebProject.AutocompleteDemo.Controllers
-@using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Extenssions
-@using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Tools
-@model DevBridge.Templates.WebProject.AutocompleteDemo.Models.Shared.Autocomplete
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using DevBridge.Kernel.Web.Mvc.Attributes
+@using DevBridge.Kernel.Web.Mvc.Controllers
+@using DevBridge.Kernel.Web.Mvc.Extensions
+@using DevBridge.Kernel.Web.Mvc.Helpers
+
+@model DevBridge.Kernel.Web.Mvc.Models.Shared.Autocomplete
 @{
 	object localDataSource = null;
 	var isDataSourceLocal = false;
 	var localDataSourceStringJson = MvcHtmlString.Create("{}");
 	object attribute;
 
-	var attributeType = typeof(DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Attributes.AutocompleteAttribute);
+	var attributeType = typeof(AutocompleteAttribute);
 	if (!ViewData.ModelMetadata.AdditionalValues.TryGetValue(attributeType.Name, out attribute))
 	{
 		if (!ViewData.TryGetValue("dataSource", out localDataSource))
@@ -25,7 +29,7 @@
 
 		isDataSourceLocal = true;
 	}
-	var attr = (DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Attributes.AutocompleteAttribute)attribute;
+	var attr = (AutocompleteAttribute)attribute;
 }
 
 <script type="text/javascript">
@@ -46,13 +50,6 @@
 			noCache: false, 
 			onSelect: function (value, data) {
 				$('#@Html.IdFor(m => m)').val(data);
-			},
-			onChange: function(value, data) {
-				if (data == -1) {
-						// remove invalid value, as it didn't match anything
-						$('#@Html.IdFor(m => m)').val('');
-						return false;
-				}
 			},
 			isLocal: @isDataSourceLocal.ToString().ToLower(),
 			lookup: @{if(localDataSourceStringJson.ToString() != "{}")

@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Version", "Version", "{D44D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.AutocompleteDemo", "DevBridge.Templates.WebProject.AutocompleteDemo\DevBridge.Templates.WebProject.AutocompleteDemo.csproj", "{29093AE6-82AA-486B-A3E3-BC2098AD59DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Kern", "DevBridge.Kern\DevBridge.Kern.csproj", "{C8007028-6827-4A0B-B489-7569B1A9335D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Kernel.Web.Mvc", "DevBridge.Kernel.Web.Mvc\DevBridge.Kernel.Web.Mvc.csproj", "{C8007028-6827-4A0B-B489-7569B1A9335D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

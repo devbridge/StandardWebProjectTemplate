@@ -1,0 +1,9 @@
+﻿@using System.Web.Mvc.Html
+@using DevBridge.Kernel.Web.Mvc.Helpers
+@{
+	var modelValue = ViewData.TemplateInfo.FormattedModelValue == ViewData.ModelMetadata.Model ?
+	String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:d}", ViewData.ModelMetadata.Model) : 
+	ViewData.TemplateInfo.FormattedModelValue;
+}
+@Html.TextBox(string.Empty, modelValue, HtmlAttributeHelper.GetDateAttributes(ViewData))
+

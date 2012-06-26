@@ -1,0 +1,2 @@
+﻿@model DateTime?
+@Html.Encode(Model.HasValue ? Model.Value.ToString("MMMM d, yyyy") : "N/A")

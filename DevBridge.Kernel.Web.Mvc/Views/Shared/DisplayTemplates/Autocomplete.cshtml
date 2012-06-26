@@ -1,0 +1,4 @@
+﻿@using System.Web.Mvc.Html
+@using DevBridge.Kernel.Web.Mvc.Helpers
+@model DevBridge.Kernel.Web.Mvc.Models.Shared.Autocomplete
+@Html.DisplayFor(m => m.Name, additionalViewData: HtmlAttributeHelper.GetAutocompleteAttributes(ViewData))
