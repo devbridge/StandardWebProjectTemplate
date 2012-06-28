@@ -273,10 +273,6 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DevBridge.Templates.WebProject.Common\DevBridge.Templates.WebProject.Common.csproj">
-      <Project>{086F6C7D-DA91-402C-8DDC-15E9A687A4E6}</Project>
-      <Name>DevBridge.Templates.WebProject.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DevBridge.Templates.WebProject.DataContracts\DevBridge.Templates.WebProject.DataContracts.csproj">
       <Project>{0A9661C0-67DD-43C7-99EF-337CE3BFD124}</Project>
       <Name>DevBridge.Templates.WebProject.DataContracts</Name>
