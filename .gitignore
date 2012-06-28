@@ -15,7 +15,8 @@ _ReSharper.*
 *.sln.cache
 
 #Nuget
-packages
+packages/**
+!packages/repositories.config
 
 #vim
 *~
