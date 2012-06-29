@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0"?>
-<project name="TripBalticSupportUpdateDatabase" default="updateDatabase">
+<project name="UpdateDatabase" default="updateDatabase">
 
   <target name="updateDatabase">
     <manageSqlDatabase

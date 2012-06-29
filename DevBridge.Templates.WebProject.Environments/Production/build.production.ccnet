@@ -52,7 +52,7 @@
 
     <exec description="Backup database.">
       <executable>cmd</executable>
-      <buildArgs>/c sqlcmd -S devsql1,1433 -U ReplaceWithYourUser -P ReplaceWithYourPassword -Q "BACKUP DATABASE [DevBridgeTemplateWebProject] TO DISK = N'C:\MSSQL\Backup\DevBridgeTemplateWebProject-%CCNetLabel%.bak' WITH NOFORMAT, NOINIT,  NAME = N'TripBaltic-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10"</buildArgs>
+      <buildArgs>/c sqlcmd -S devsql1,1433 -U ReplaceWithYourUser -P ReplaceWithYourPassword -Q "BACKUP DATABASE [DevBridgeTemplateWebProject] TO DISK = N'C:\MSSQL\Backup\DevBridgeTemplateWebProject-%CCNetLabel%.bak' WITH NOFORMAT, NOINIT,  NAME = N'DevBridgeTemplateWebProject-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10"</buildArgs>
       <buildTimeoutSeconds>600</buildTimeoutSeconds>
     </exec>
 
