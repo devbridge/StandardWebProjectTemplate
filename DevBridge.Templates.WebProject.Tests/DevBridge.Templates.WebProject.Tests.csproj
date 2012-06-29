@@ -99,7 +99,6 @@
     <Compile Include="DataContracts\AgreementRepositoryTest.cs" />
     <Compile Include="DataEntityMappings\EnumsMapTest.cs" />
     <Compile Include="DataContracts\GenericRepositoryTest.cs" />
-    <Compile Include="DataContracts\CustomerRepositoryTest.cs" />
     <Compile Include="DataEntityMappings\AgreementMapTest.cs" />
     <Compile Include="DataEntityMappings\CustomerMapTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,6 +114,7 @@
     <None Include="App.config" />
     <Content Include="Config\hibernate-configuration.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>

@@ -59,7 +59,6 @@
   <ItemGroup>
     <Content Include="Globalization\Update\00000_Empty.sql" />
     <Content Include="Update\00000_CreateDatabase.sql" />
-    <Content Include="Update\00001_PopulateEnums.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />

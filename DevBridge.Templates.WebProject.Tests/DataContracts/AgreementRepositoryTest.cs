@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using DevBridge.Templates.WebProject.Data;
 using DevBridge.Templates.WebProject.Data.DataContext;
 using DevBridge.Templates.WebProject.DataContracts;
-using DevBridge.Templates.WebProject.DataEntities.Entities;
 using DevBridge.Templates.WebProject.DataEntities.Enums;
 using DevBridge.Templates.WebProject.Tests.TestHelpers;
-using NHibernate.Linq;
 using NUnit.Framework;
 
 namespace DevBridge.Templates.WebProject.Tests.DataContracts
@@ -19,28 +16,21 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
-                try
-                {
-                    unitOfWork.BeginTransaction();
+                unitOfWork.BeginTransaction();
 
-                    Customer customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
-                    customer.Type = CustomerType.ImpulseCustomers;
-                    unitOfWork.Session.SaveOrUpdate(customer);
+                var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                customer.Type = CustomerType.ImpulseCustomers;
+                unitOfWork.Session.SaveOrUpdate(customer);
 
-                    Agreement agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
-                    unitOfWork.Session.SaveOrUpdate(agreement);
-                    unitOfWork.Session.Flush();
+                var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                unitOfWork.Session.SaveOrUpdate(agreement);
+                unitOfWork.Session.Flush();
 
-                    IAgreementRepository agreementRepository = new AgreementRepository(unitOfWork);
-                    var list = agreementRepository.GetAgreementsByCustomerType(CustomerType.ImpulseCustomers);
+                IAgreementRepository agreementRepository = new AgreementRepository(unitOfWork);
+                var list = agreementRepository.GetAgreementsByCustomerType(CustomerType.ImpulseCustomers);
 
-                    Assert.IsNotNull(list);
-                    Assert.IsTrue(list.Contains(agreement));
-                }
-                finally 
-                {                    
-                    unitOfWork.Rollback();
-                }                
+                Assert.IsNotNull(list);
+                Assert.IsTrue(list.Contains(agreement));
             }
         }
     }

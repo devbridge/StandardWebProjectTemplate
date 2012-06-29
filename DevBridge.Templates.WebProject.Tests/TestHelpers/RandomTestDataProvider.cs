@@ -47,21 +47,23 @@ namespace DevBridge.Templates.WebProject.Tests.TestHelpers
 
         public Customer CreateNewRandomCustomer()
         {
-            Customer customer = new Customer();
-            customer.Name = ProvideRandomString(50);
-            customer.Code = ProvideRandomString(10);
-            customer.Type = (CustomerType)ProvideRandomNumber(1, 6);
-            customer.CreatedOn = ProvideRandomDateTime();
-            return customer;
+            return new Customer
+                       {
+                           Name = ProvideRandomString(50),
+                           Code = ProvideRandomString(10),
+                           Type = (CustomerType)ProvideRandomNumber(1, 6),
+                           CreatedOn = ProvideRandomDateTime()
+                       };
         }
 
         public Agreement CreateNewRandomAgreementForCustomer(Customer customer)
         {
-            Agreement agreement = new Agreement();
-            agreement.Customer = customer;
-            agreement.Number = ProvideRandomString(20);
-            agreement.CreatedOn = ProvideRandomDateTime();
-            return agreement;
+            return new Agreement
+                       {
+                           Customer = customer,
+                           Number = ProvideRandomString(20),
+                           CreatedOn = ProvideRandomDateTime()
+                       };
         }
     }
 }

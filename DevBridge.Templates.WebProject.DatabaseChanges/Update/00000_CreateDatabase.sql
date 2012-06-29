@@ -33,7 +33,7 @@ CREATE TABLE [dbo].[Customer](
 	[Code] [nchar](10) NOT NULL,
 	[Type] [int] NOT NULL,
 	[CreatedOn] [datetime] NOT NULL,
-	[IsDeleted] [bit] NOT NULL,
+	[DeletedOn] [datetime] NULL,
  CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -53,7 +53,7 @@ CREATE TABLE [dbo].[Agreement](
 	[Number] [nchar](20) NOT NULL,
 	[CustomerId] [int] NOT NULL,
 	[CreatedOn] [datetime] NOT NULL,
-	[IsDeleted] [bit] NOT NULL,
+	[DeletedOn] [datetime] NULL,
  CONSTRAINT [PK_Agreement] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -84,34 +84,12 @@ END
 
 End
 GO
-/****** Object:  Default [DF_Agreement_IsDeleted]    Script Date: 09/16/2011 15:20:34 ******/
-IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_Agreement_IsDeleted]') AND parent_object_id = OBJECT_ID(N'[dbo].[Agreement]'))
-Begin
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Agreement_IsDeleted]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[Agreement] ADD  CONSTRAINT [DF_Agreement_IsDeleted]  DEFAULT ((0)) FOR [IsDeleted]
-END
-
-
-End
-GO
 /****** Object:  Default [DF_Customer_CreatedOn]    Script Date: 09/16/2011 15:20:34 ******/
 IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_Customer_CreatedOn]') AND parent_object_id = OBJECT_ID(N'[dbo].[Customer]'))
 Begin
 IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Customer_CreatedOn]') AND type = 'D')
 BEGIN
 ALTER TABLE [dbo].[Customer] ADD  CONSTRAINT [DF_Customer_CreatedOn]  DEFAULT (getdate()) FOR [CreatedOn]
-END
-
-
-End
-GO
-/****** Object:  Default [DF_Customer_IsDeleted]    Script Date: 09/16/2011 15:20:34 ******/
-IF Not EXISTS (SELECT * FROM sys.default_constraints WHERE object_id = OBJECT_ID(N'[dbo].[DF_Customer_IsDeleted]') AND parent_object_id = OBJECT_ID(N'[dbo].[Customer]'))
-Begin
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Customer_IsDeleted]') AND type = 'D')
-BEGIN
-ALTER TABLE [dbo].[Customer] ADD  CONSTRAINT [DF_Customer_IsDeleted]  DEFAULT ((0)) FOR [IsDeleted]
 END
 
 
@@ -124,4 +102,27 @@ REFERENCES [dbo].[Customer] ([Id])
 GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Agreement_Customer]') AND parent_object_id = OBJECT_ID(N'[dbo].[Agreement]'))
 ALTER TABLE [dbo].[Agreement] CHECK CONSTRAINT [FK_Agreement_Customer]
+GO
+
+-- Populate [CustomerType] enum
+IF NOT EXISTS (SELECT 1 FROM [dbo].[CustomerType])
+BEGIN
+	INSERT INTO [dbo].[CustomerType]([Type],[Title],[Description])
+	VALUES(1, 'Standard', 'Standard')
+
+	INSERT INTO [dbo].[CustomerType]([Type],[Title],[Description])
+	VALUES(2, 'LoyalCustomers', 'LoyalCustomers')
+
+	INSERT INTO [dbo].[CustomerType]([Type],[Title],[Description])
+	VALUES(3, 'DiscountCustomers', 'DiscountCustomers')
+
+	INSERT INTO [dbo].[CustomerType]([Type],[Title],[Description])
+	VALUES(4, 'ImpulseCustomers', 'ImpulseCustomers')
+
+	INSERT INTO [dbo].[CustomerType]([Type],[Title],[Description])
+	VALUES(5, 'NeedBasedCustomers', 'NeedBasedCustomers')
+
+	INSERT INTO [dbo].[CustomerType]([Type],[Title],[Description])
+	VALUES(6, 'WanderingCustomers', 'WanderingCustomers')
+END
 GO
