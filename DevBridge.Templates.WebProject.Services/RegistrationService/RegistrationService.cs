@@ -32,13 +32,11 @@ namespace DevBridge.Templates.WebProject.Services
                 Customer customer = new Customer();
                 customer.Name = name;
                 customer.Type  = customerType;
-                customer.IsDeleted = false;
                 customer.CreatedOn = DateTime.Now;
                 customer.Agreements.Add(new Agreement
                                             {
                                                 Number = agreementManagementService.GenerateAgreementNumber(),
                                                 CreatedOn =  DateTime.Now,
-                                                IsDeleted = false,
                                                 Customer = customer
                                             });
                 customerRepository.Save(customer);

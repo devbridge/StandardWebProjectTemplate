@@ -29,7 +29,5 @@ namespace DevBridge.Templates.WebProject.DataContracts
         void Delete(TEntity entity);
 
         void Delete(int id);
-
-        bool Exists(int id);
     }
 }

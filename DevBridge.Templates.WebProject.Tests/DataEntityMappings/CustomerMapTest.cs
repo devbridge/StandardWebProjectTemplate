@@ -22,7 +22,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataEntityMappings
                     .CheckProperty(f => f.Name, Singleton.TestDataProvider.ProvideRandomString(50))
                     .CheckProperty(f => f.Code, Singleton.TestDataProvider.ProvideRandomString(10))
                     .CheckProperty(f => f.Type, CustomerType.NeedBasedCustomers)
-                    .CheckProperty(f => f.IsDeleted, false)
+                    .CheckProperty(f => f.DeletedOn, null)
                     .CheckProperty(f => f.CreatedOn, Singleton.TestDataProvider.ProvideRandomDateTime())
                     .VerifyTheMappings();
             }

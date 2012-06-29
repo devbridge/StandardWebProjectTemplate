@@ -22,7 +22,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataEntityMappings
 
                 new PersistenceSpecification<Agreement>(unitOfWork.Session)
                     .CheckProperty(f => f.Number, Singleton.TestDataProvider.ProvideRandomString(20))
-                    .CheckProperty(f => f.IsDeleted, false)
+                    .CheckProperty(f => f.DeletedOn, null)
                     .CheckProperty(f => f.CreatedOn, Singleton.TestDataProvider.ProvideRandomDateTime())
                     .CheckReference(f => f.Customer, customer)
                     .VerifyTheMappings();

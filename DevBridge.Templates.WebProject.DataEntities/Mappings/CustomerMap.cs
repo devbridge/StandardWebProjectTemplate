@@ -15,7 +15,7 @@ namespace DevBridge.Templates.WebProject.DataEntities.Mappings
                 .KeyColumn("CustomerId")
                 .Cascade.SaveUpdate();            
             Map(f => f.CreatedOn).Not.Nullable();
-            Map(f => f.IsDeleted).Not.Nullable();
+            Map(f => f.DeletedOn).Not.Nullable();
         }
     }
 }

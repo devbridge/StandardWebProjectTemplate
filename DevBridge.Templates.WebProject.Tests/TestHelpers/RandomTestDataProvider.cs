@@ -52,7 +52,6 @@ namespace DevBridge.Templates.WebProject.Tests.TestHelpers
             customer.Code = ProvideRandomString(10);
             customer.Type = (CustomerType)ProvideRandomNumber(1, 6);
             customer.CreatedOn = ProvideRandomDateTime();
-            customer.IsDeleted = false;
             return customer;
         }
 
@@ -62,7 +61,6 @@ namespace DevBridge.Templates.WebProject.Tests.TestHelpers
             agreement.Customer = customer;
             agreement.Number = ProvideRandomString(20);
             agreement.CreatedOn = ProvideRandomDateTime();
-            agreement.IsDeleted = false;
             return agreement;
         }
     }

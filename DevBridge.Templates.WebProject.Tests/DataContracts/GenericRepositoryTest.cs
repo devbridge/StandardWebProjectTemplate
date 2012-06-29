@@ -24,7 +24,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
             var list = repository.AsQueryable().Take(10).ToList();
             Assert.IsNotNull(list, repositoryMessage);
             Assert.Greater(list.Count(), 0, repositoryMessage);
-            Assert.IsFalse(list.Any(f => f.IsDeleted), repositoryMessage);
+            Assert.IsFalse(list.Any(f => f.DeletedOn != null), repositoryMessage);
         }
 
         [Test]
