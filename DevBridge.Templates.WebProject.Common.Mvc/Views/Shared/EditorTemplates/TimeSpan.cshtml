@@ -1,0 +1,5 @@
+﻿@using DevBridge.Templates.WebProject.Common.Mvc.Infrastructure.Helpers
+@{
+	object formattedValue = String.Format(System.Globalization.CultureInfo.CurrentCulture, @"{0:hh\:mm}", ViewData.ModelMetadata.Model ?? String.Empty);
+}
+@Html.TextBox(String.Empty, formattedValue, HtmlAttributeHelper.GetTimeSpanAttributes(ViewData))

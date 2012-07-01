@@ -1,0 +1,4 @@
+﻿@{
+	object formattedValue = String.Format(System.Globalization.CultureInfo.CurrentCulture, @"{0:hh\:mm}", Model ?? String.Empty);
+}
+@Html.Encode(formattedValue)

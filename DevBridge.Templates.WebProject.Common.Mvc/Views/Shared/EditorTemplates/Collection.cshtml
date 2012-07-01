@@ -1,0 +1,14 @@
+﻿@model object
+@if (Model != null)	{
+    var oldPrefix = ViewData.TemplateInfo.HtmlFieldPrefix;
+    var index = 0;
+
+    ViewData.TemplateInfo.HtmlFieldPrefix = String.Empty;
+        
+    foreach (var item in (System.Collections.IEnumerable)Model) {
+        var fieldName = String.Format(System.Globalization.CultureInfo.InvariantCulture, "{0}[{1}]", oldPrefix, index++);
+        @Html.DisplayFor(m => item, null, fieldName);
+    }
+        
+    ViewData.TemplateInfo.HtmlFieldPrefix = oldPrefix;
+}
