@@ -1,6 +1,6 @@
 ﻿namespace DevBridge.Templates.WebProject.Common.Mvc
 {
-	public interface IService
+	public interface ICommand
 	{
 		void Execute();
 	}

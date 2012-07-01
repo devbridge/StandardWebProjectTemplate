@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Linq;
 
-namespace DevBridge.Templates.WebProject.Common.Mvc
+namespace DevBridge.Templates.WebProject.Common.Mvc.Infrastructure.Extensions
 {
 	public static class ModelStateExtensions
 	{

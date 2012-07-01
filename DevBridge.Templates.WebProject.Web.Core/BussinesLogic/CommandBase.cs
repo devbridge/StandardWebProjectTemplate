@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using DevBridge.Templates.WebProject.Common.Mvc;
 
-namespace DevBridge.Templates.WebProject.Common.Mvc
+namespace DevBridge.Templates.WebProject.Web.Core.BussinesLogic
 {
-	public abstract class ServiceBase : IService
+	public abstract class CommandBase : ICommand
 	{
 		protected bool UseManualTransaction { get; set; }
 		protected ICollection<ErrorInfo> Errors { get; private set; }
 
-		protected ServiceBase()
+		protected CommandBase()
 		{
 			Errors = new List<ErrorInfo>();
 		}
@@ -35,7 +36,7 @@ namespace DevBridge.Templates.WebProject.Common.Mvc
 				//tx.Commit();
 			//}
 		}
-		
+
 		protected abstract void ExecuteCommand();
 	}
 }
