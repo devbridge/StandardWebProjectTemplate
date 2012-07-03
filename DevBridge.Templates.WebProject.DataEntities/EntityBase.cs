@@ -45,7 +45,7 @@ namespace DevBridge.Templates.WebProject.DataEntities
         {
             if (!hashCode.HasValue)
             {
-                hashCode = Id == default(int) ? base.GetHashCode() : Id.GetHashCode();
+                hashCode = Id == default(int) ? base.GetHashCode() : Id;
             }
 
             return hashCode.Value;
