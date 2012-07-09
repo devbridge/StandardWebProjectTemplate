@@ -1,4 +1,4 @@
-﻿[DevBridge Standard Web Project Template (http://www.devbridge.com/articles/standard-web-project-template/)]
+﻿[DevBridge Standard Web Project Template (http://www.devbridge.com/)]
 =======================================================================
 ## Why
 Our Standard Web Project Template serves two purposes: to share expertise between developers and to make easier for new team members to setup new web application in right way. Since here in DevBridge we believe in open communication we are not afraid to share our knowledge with the rest of the world.
