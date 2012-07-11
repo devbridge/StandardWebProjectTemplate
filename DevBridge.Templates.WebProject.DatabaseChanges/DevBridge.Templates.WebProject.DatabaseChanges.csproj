@@ -55,7 +55,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Globalization\Update\00000_Empty.sql" />
     <Content Include="Update\00000_CreateDatabase.sql" />
