@@ -1,16 +1,18 @@
 ﻿@using DevBridge.Templates.WebProject.AutocompleteDemo.Controllers
+@using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Attributes
 @using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Extenssions
 @using DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Tools
 @model DevBridge.Templates.WebProject.AutocompleteDemo.Models.Shared.Autocomplete
+
 @{
-	object localDataSource = null;
 	var isDataSourceLocal = false;
 	var localDataSourceStringJson = MvcHtmlString.Create("{}");
 	object attribute;
 
-	var attributeType = typeof(DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Attributes.AutocompleteAttribute);
+	var attributeType = typeof(AutocompleteAttribute);
 	if (!ViewData.ModelMetadata.AdditionalValues.TryGetValue(attributeType.Name, out attribute))
 	{
+		object localDataSource;
 		if (!ViewData.TryGetValue("dataSource", out localDataSource))
 		{
 			throw new InvalidOperationException(String.Format(
@@ -25,7 +27,12 @@
 
 		isDataSourceLocal = true;
 	}
-	var attr = (DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Attributes.AutocompleteAttribute)attribute;
+
+	var attr = (AutocompleteAttribute)attribute;
+	if (attr != null && attr.SetDataSourceAfterLoadViaOptions)
+	{
+		isDataSourceLocal = true;
+	}
 }
 
 <script type="text/javascript">
@@ -33,14 +40,14 @@
 		$('#@Html.IdFor(m => m.Name)').autocomplete({
 			serviceUrl: '@(!isDataSourceLocal ? Url.JsAction<AutocompleteController>(c => c.Index(null, null)) : null)',
 			isJsonRequest: true,
-			minChars: 2,
+			minChars: @(attr != null ? attr.MinChars : 2),
 			delimiter: /(,|;)\s*/, // regex or character
 			maxHeight: 400,
 			width: 300,
 			zIndex: 9999,
 			deferRequestBy: 0, //miliseconds
 			params: @{
-						var t = !isDataSourceLocal && attr != null && attr.DataSourceType != null ? string.Format("{{ dataSourceType: '{0}' }}", attr.DataSourceType.FullName) : "{}";
+				var t = !isDataSourceLocal && attr != null && attr.DataSourceType != null ? string.Format("{{ dataSourceType: '{0}' }}", attr.DataSourceType.FullName) : "{}";
 						@MvcHtmlString.Create(t)
 					},
 			noCache: false, 
@@ -55,12 +62,12 @@
 				}
 			},
 			isLocal: @isDataSourceLocal.ToString().ToLower(),
-			lookup: @{if(localDataSourceStringJson.ToString() != "{}")
-						{
+			lookup: @{if (localDataSourceStringJson.ToString() != "{}")
+			 {
 							@:JSON.parse('@localDataSourceStringJson')
 						}
-						else
-						{
+			 else
+			 {
 							@:null
 						}
 					}

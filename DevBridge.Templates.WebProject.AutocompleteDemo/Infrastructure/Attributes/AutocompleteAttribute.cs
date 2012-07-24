@@ -7,12 +7,18 @@ namespace DevBridge.Templates.WebProject.AutocompleteDemo.Infrastructure.Attribu
 	public class AutocompleteAttribute : Attribute, IMetadataAware
 	{
 		public Type DataSourceType;
-		public int MinLength { get; set; }
+		public int MinChars { get; set; }
+		public bool SetDataSourceAfterLoadViaOptions { get; set; }
+
+		public AutocompleteAttribute()
+		{
+			MinChars = 2;
+		}
 
 		public AutocompleteAttribute(Type dataSourceType)
+			: this()
 		{
-			this.DataSourceType = dataSourceType;
-			MinLength = 2;
+			DataSourceType = dataSourceType;
 		}
 
 		public void OnMetadataCreated(ModelMetadata metadata)

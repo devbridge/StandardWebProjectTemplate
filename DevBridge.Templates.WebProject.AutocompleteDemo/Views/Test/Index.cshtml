@@ -15,5 +15,15 @@
 	@Html.DisplayFor(c => c.LocalDataSource)
 	@Html.EditorFor(c => c.LocalDataSource, additionalViewData: new { dataSource = Model.LocalDataSourceData })
 	<br />
+	
+	@: datasource from javascript after page load (possible ajax scenario)
+	@Html.DisplayFor(c => c.SetDataSourceAfterLoad)
+	@Html.EditorFor(c => c.SetDataSourceAfterLoad)
 	<input type="submit" value="submit" />
 }
+
+<script>
+	jQuery(function ($) {
+		$('#@Html.IdFor(m => m.SetDataSourceAfterLoad.Name)').autocomplete('option', 'lookup', JSON.parse('@MvcHtmlString.Create(Model.LocalDataSourceData.ToString())'));
+	});
+</script>

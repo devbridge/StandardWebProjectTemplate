@@ -24,6 +24,7 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static class MVC {
     public static DevBridge.Templates.WebProject.Web.Controllers.AccountController Account = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_AccountController();
+    public static DevBridge.Templates.WebProject.Web.Controllers.AgreementController Agreement = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_AgreementController();
     public static DevBridge.Templates.WebProject.Web.Controllers.HomeController Home = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_HomeController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }

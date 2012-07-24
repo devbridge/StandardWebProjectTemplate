@@ -19,7 +19,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using DevBridge.Templates.WebProject.Web.Models;
 using T4MVC;
 namespace DevBridge.Templates.WebProject.Web.Controllers {
     public partial class AccountController {
@@ -77,7 +76,7 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult LogOn(LogOnModel model, string returnUrl) {
+        public override System.Web.Mvc.ActionResult LogOn(DevBridge.Templates.WebProject.Web.Models.LogOnModel model, string returnUrl) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.LogOn);
             callInfo.RouteValueDictionary.Add("model", model);
             callInfo.RouteValueDictionary.Add("returnUrl", returnUrl);
@@ -94,7 +93,7 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Register(RegisterModel model) {
+        public override System.Web.Mvc.ActionResult Register(DevBridge.Templates.WebProject.Web.Models.RegisterModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Register);
             callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;
@@ -105,7 +104,7 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult ChangePassword(ChangePasswordModel model) {
+        public override System.Web.Mvc.ActionResult ChangePassword(DevBridge.Templates.WebProject.Web.Models.ChangePasswordModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.ChangePassword);
             callInfo.RouteValueDictionary.Add("model", model);
             return callInfo;

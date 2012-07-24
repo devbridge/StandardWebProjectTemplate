@@ -1,0 +1,7 @@
+﻿@using DevBridge.Templates.WebProject.Common.Mvc.Infrastructure.Helpers
+@model object
+@if (ViewData.ModelMetadata.IsNullableValueType) {
+	@Html.DropDownList(String.Empty, BoolValueHelper.TriStateValue("[Choose]", "Yes", "No", Model))
+} else {
+	<input id="@Html.IdForModel()" name="@Html.NameForModel()" type="checkbox" class="check-box" value="true"@((BoolValueHelper.GetBoolValue(Model) ?? false) ? " checked=\"checked\"" : "") />
+}

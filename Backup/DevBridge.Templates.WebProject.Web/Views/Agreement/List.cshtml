@@ -1,0 +1,13 @@
+﻿@using DevBridge.Templates.WebProject.Web.Models.AgreementViewModels
+@model AgreementListViewModel
+
+@{
+    ViewBag.Title = "Agreements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Agreements</h2>
+@foreach (var agreement in Model.Agreements) {
+<text>@agreement.Number<br /></text>
+}
+

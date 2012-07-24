@@ -14,6 +14,9 @@ namespace DevBridge.Templates.WebProject.AutocompleteDemo.Models.Test
 
 		public Autocomplete LocalDataSource { get; set; }
 
+		[Autocomplete(SetDataSourceAfterLoadViaOptions = true)]
+		public Autocomplete SetDataSourceAfterLoad { get; set; }
+
 		public object LocalDataSourceData
 		{
 			get

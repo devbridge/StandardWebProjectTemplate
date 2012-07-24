@@ -1,0 +1,8 @@
+﻿@{
+	object modelValue = Model is byte[] ? Convert.ToBase64String((byte[])Model) : Model;
+}
+
+@if (!ViewData.ModelMetadata.HideSurroundingHtml) {
+	@Html.Encode(ViewData.TemplateInfo.FormattedModelValue)
+}
+@Html.Hidden(String.Empty, modelValue)

@@ -18,7 +18,7 @@ namespace DevBridge.Templates.WebProject.AutocompleteDemo.Controllers
 								data = items.ToList().Select(c => c.Id).ToArray()
 			             	};
 
-			return Json(retVal);
+			return Json(retVal, JsonRequestBehavior.AllowGet);
 		}
 	}
 }
