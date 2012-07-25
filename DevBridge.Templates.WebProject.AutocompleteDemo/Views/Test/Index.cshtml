@@ -24,6 +24,6 @@
 
 <script>
 	jQuery(function ($) {
-		$('#@Html.IdFor(m => m.SetDataSourceAfterLoad.Name)').autocomplete('option', 'lookup', JSON.parse('@MvcHtmlString.Create(Model.LocalDataSourceData.ToString())'));
+		$('#@Html.IdFor(m => m.SetDataSourceAfterLoad.Name)').autocomplete('extendOptions', { lookup: JSON.parse('@MvcHtmlString.Create(Model.LocalDataSourceData.ToString())') });
 	});
 </script>

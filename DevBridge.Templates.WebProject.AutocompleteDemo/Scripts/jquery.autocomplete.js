@@ -52,12 +52,15 @@
 		this.el.data('autocomplete', this);
 	}
 
-	$.fn.autocomplete = function (options, optionName, optionValue) {
+	$.fn.autocomplete = function (options, optionName) {
 
 		var autocompleteControl;
-		if (options == 'option') {
+
+		if (typeof options == 'string') {
 			autocompleteControl = this.data('autocomplete');
-			autocompleteControl.options[optionName] = optionValue;
+			if (typeof autocompleteControl[options] == 'function') {
+				autocompleteControl[options](optionName);
+			}
 		} else {
 			autocompleteControl = new Autocomplete(this.get(0) || $('<input />'), options);
 		}
@@ -101,9 +104,13 @@
 			this.el.change(function () { me.onValueChanged(); });
 		},
 
+		extendOptions: function (options) {
+			$.extend(this.options, options);
+		},
+
 		setOptions: function (options) {
 			var o = this.options;
-			$.extend(o, options);
+			this.extendOptions(options);
 			if (o.lookup || o.isLocal) {
 				this.isLocal = true;
 				if ($.isArray(o.lookup)) { o.lookup = { suggestions: o.lookup, data: [] }; }
