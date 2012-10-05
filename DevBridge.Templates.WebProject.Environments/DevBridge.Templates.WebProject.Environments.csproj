@@ -65,6 +65,7 @@
     <None Include="Development\update.database.nant.build" />
     <Content Include="Development\Web\Config\hibernate-configuration.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Production\build.production.ccnet" />
     <None Include="Production\update.database.nant.build">

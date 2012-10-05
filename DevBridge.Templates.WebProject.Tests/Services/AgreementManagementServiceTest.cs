@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Transactions;
+using System.Linq;
 using DevBridge.Templates.WebProject.Data;
 using DevBridge.Templates.WebProject.DataContracts;
 using DevBridge.Templates.WebProject.DataContracts.Exceptions;
@@ -9,9 +9,7 @@ using DevBridge.Templates.WebProject.Services;
 using DevBridge.Templates.WebProject.Tests.TestHelpers;
 using Moq;
 using NHibernate.Linq;
-using NHibernate.Util;
 using NUnit.Framework;
-using System.Linq;
 
 namespace DevBridge.Templates.WebProject.Tests.Services
 {
@@ -45,46 +43,47 @@ namespace DevBridge.Templates.WebProject.Tests.Services
         {
             using (IUnitOfWork unitOfWork = Singleton.UnitOfWorkFactory.New())
             {
-                try
-                {                    
-                    unitOfWork.BeginTransaction();
+                unitOfWork.BeginTransaction();
 
-                    ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
-                    IAgreementRepository agreementRepository = new AgreementRepository(unitOfWork);
+                var newCustomer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                unitOfWork.Session.SaveOrUpdate(newCustomer);
 
-                    Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
-                    unitOfWorkMock.Setup(f => f.BeginTransaction()).Verifiable();
-                    unitOfWorkMock.Setup(f => f.Commit()).Callback(() => unitOfWork.Session.Flush()).Verifiable();                    
-                    unitOfWorkMock.Setup(f => f.Dispose()).Verifiable();
-                    unitOfWorkMock.Setup(f => f.Session).Returns(unitOfWork.Session);
-                    
-                    Mock<IUnitOfWorkFactory> unitOfWorkFactoryMock = new Mock<IUnitOfWorkFactory>();
-                    unitOfWorkFactoryMock.Setup(f => f.New()).Returns(unitOfWorkMock.Object);
+                var newAgreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(newCustomer);
+                unitOfWork.Session.SaveOrUpdate(newAgreement);
 
-                    IAgreementManagementService agreementManagementService =
-                        new AgreementManagementService(agreementRepository,
-                                                       customerRepository,
-                                                       unitOfWorkFactoryMock.Object,
-                                                       Singleton.ConfigurationLoaderService);
+                ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
+                IAgreementRepository agreementRepository = new AgreementRepository(unitOfWork);
 
-                    Customer customer = agreementRepository.AsQueryable().Fetch(f => f.Customer).First().Customer;
-                    Assert.IsNotNull(customer);
-                    Agreement agreement = agreementManagementService.ExtendAgreement(customer.Id);
-                    Assert.IsNotNull(agreement);
-                    Assert.AreEqual(agreement.Customer, customer);
-                    unitOfWorkMock.Verify();
-                }
-                finally
-                {
-                    unitOfWork.Rollback();
-                }
+                Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
+                unitOfWorkMock.Setup(f => f.BeginTransaction()).Verifiable();
+                unitOfWorkMock.Setup(f => f.Commit()).Callback(() => unitOfWork.Session.Flush()).Verifiable();
+                unitOfWorkMock.Setup(f => f.Dispose()).Verifiable();
+                unitOfWorkMock.Setup(f => f.Session).Returns(unitOfWork.Session);
+
+                Mock<IUnitOfWorkFactory> unitOfWorkFactoryMock = new Mock<IUnitOfWorkFactory>();
+                unitOfWorkFactoryMock.Setup(f => f.New()).Returns(unitOfWorkMock.Object);
+
+                IAgreementManagementService agreementManagementService =
+                    new AgreementManagementService(agreementRepository,
+                                                   customerRepository,
+                                                   unitOfWorkFactoryMock.Object,
+                                                   Singleton.ConfigurationLoaderService);
+
+                var customer = agreementRepository.AsQueryable().Fetch(f => f.Customer).First().Customer;
+                Assert.IsNotNull(customer);
+                
+                var agreement = agreementManagementService.ExtendAgreement(customer.Id);
+                Assert.IsNotNull(agreement);
+                Assert.AreEqual(agreement.Customer, customer);
+
+                unitOfWorkMock.Verify();
             }
         }
 
         [Test]
         public void Should_Generate_Valid_Agreement_Number()
         {
-            AgreementManagementService service = new AgreementManagementService(null, null, null, Singleton.ConfigurationLoaderService);
+            IAgreementManagementService service = new AgreementManagementService(null, null, null, Singleton.ConfigurationLoaderService);
             var config = Singleton.ConfigurationLoaderService.LoadConfig<AgreementManagementServiceConfiguration>();
             string number = service.GenerateAgreementNumber();
             Assert.IsNotNull(number);
@@ -97,6 +96,14 @@ namespace DevBridge.Templates.WebProject.Tests.Services
         {
             using (IUnitOfWork unitOfWork = Singleton.UnitOfWorkFactory.New())
             {
+                unitOfWork.BeginTransaction();
+
+                var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                unitOfWork.Session.SaveOrUpdate(customer);
+
+                var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                unitOfWork.Session.SaveOrUpdate(agreement);
+
                 IAgreementManagementService agreementManagementService =
                     new AgreementManagementService(new AgreementRepository(unitOfWork), 
                                                    new CustomerRepository(unitOfWork), 

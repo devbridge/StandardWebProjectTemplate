@@ -13,9 +13,11 @@ Obj/
 #Resource Caches
 _ReSharper.*
 *.sln.cache
+logs/
 
 #Nuget
-packages
+packages/**
+!packages/repositories.config
 
 #vim
 *~

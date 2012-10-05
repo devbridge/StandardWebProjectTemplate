@@ -6,6 +6,6 @@ namespace DevBridge.Templates.WebProject.DataEntities
     {
         int Id { get; set; }
         DateTime CreatedOn { get; set; }
-        bool IsDeleted { get; set; }
+        DateTime? DeletedOn { get; set; }
     }
 }

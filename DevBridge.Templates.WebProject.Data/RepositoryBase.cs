@@ -58,12 +58,12 @@ namespace DevBridge.Templates.WebProject.Data
 
         public TEntity FirstOrDefault(int id)
         {
-            return UnitOfWork.Session.Query<TEntity>().FirstOrDefault(f => !f.IsDeleted && f.Id == id);
+            return AsQueryable().FirstOrDefault(f => f.Id == id);
         }
 
         public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> filter)
         {
-            return UnitOfWork.Session.Query<TEntity>().Where(f => !f.IsDeleted).Where(filter).FirstOrDefault();
+            return AsQueryable().FirstOrDefault(filter);
         }
 
         public TEntity CreateProxy(int id)
@@ -73,17 +73,17 @@ namespace DevBridge.Templates.WebProject.Data
 
         public IQueryable<TEntity> AsQueryable(Expression<Func<TEntity, bool>> filter)
         {
-            return UnitOfWork.Session.Query<TEntity>().Where(f => !f.IsDeleted).Where(filter);
+            return AsQueryable().Where(filter);
         }
 
         public IQueryable<TEntity> AsQueryable()
         {
-            return UnitOfWork.Session.Query<TEntity>().Where(f => !f.IsDeleted);
+            return UnitOfWork.Session.Query<TEntity>().Where(f => f.DeletedOn == null);
         }
 
         public bool Any(Expression<Func<TEntity, bool>> filter)
         {
-            return UnitOfWork.Session.Query<TEntity>().Where(f => !f.IsDeleted).Any(filter);
+            return AsQueryable().Count(filter) > 0;
         }
 
         public void Save(TEntity entity)
@@ -93,7 +93,7 @@ namespace DevBridge.Templates.WebProject.Data
 
         public void Delete(TEntity entity)
         {
-            entity.IsDeleted = true;
+            entity.DeletedOn = DateTime.Now;
             UnitOfWork.Session.SaveOrUpdate(entity);
         }
 
@@ -101,13 +101,6 @@ namespace DevBridge.Templates.WebProject.Data
         {            
             TEntity entity = First(id);            
             Delete(entity);
-        }
-
-        public bool Exists(int id)
-        {
-            return UnitOfWork.Session.QueryOver<TEntity>()
-                .Where(x => x.Id == id)
-                .RowCountInt64() == 1;
         }
     }
 }

@@ -5,7 +5,7 @@ using DevBridge.Templates.WebProject.Web.Models;
 
 namespace DevBridge.Templates.WebProject.Web.Controllers
 {
-    public partial class AccountController : Common.Mvc.ControllerBase
+    public partial class AccountController : Controller
     {
         public virtual ActionResult LogOn()
         {

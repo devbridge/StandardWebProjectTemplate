@@ -5,13 +5,13 @@ namespace DevBridge.Templates.WebProject.DataEntities
     public abstract class EntityBase<TEntity> : IEntity
         where TEntity : class, IEntity
     {
-        private int? _hashCode;
+        private int? hashCode;
 
         public virtual int Id { get; set; }
 
         public virtual DateTime CreatedOn { get; set; }
 
-        public virtual bool IsDeleted { get; set; }
+        public virtual DateTime? DeletedOn { get; set; }
 
         public static bool operator ==(EntityBase<TEntity> x, EntityBase<TEntity> y)
         {
@@ -43,17 +43,17 @@ namespace DevBridge.Templates.WebProject.DataEntities
 
         public override int GetHashCode()
         {
-            if (!_hashCode.HasValue)
+            if (!hashCode.HasValue)
             {
-                _hashCode = Id == default(int) ? base.GetHashCode() : Id.GetHashCode();
+                hashCode = Id == default(int) ? base.GetHashCode() : Id;
             }
 
-            return _hashCode.Value;
+            return hashCode.Value;
         }
 
         public override string ToString()
         {
-            return string.Format("{0}, Id: {1}, CreatedOn: {2}, IsDeleted: {3}", typeof(TEntity).Name, Id, CreatedOn, IsDeleted);
+            return string.Format("{0}, Id: {1}, CreatedOn: {2}, IsDeleted: {3}", typeof(TEntity).Name, Id, CreatedOn, DeletedOn);
         }
     }
 }

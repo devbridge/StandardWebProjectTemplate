@@ -60,7 +60,6 @@ namespace DevBridge.Templates.WebProject.Services
                         extendedAgreement.Customer = customer;
                         extendedAgreement.Number = GenerateAgreementNumber();
                         extendedAgreement.CreatedOn = DateTime.Now;
-                        extendedAgreement.IsDeleted = false;
                         agreementRepository.Save(extendedAgreement);
                         unitOfWork.Commit();
 

@@ -24,7 +24,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
             var list = repository.AsQueryable().Take(10).ToList();
             Assert.IsNotNull(list, repositoryMessage);
             Assert.Greater(list.Count(), 0, repositoryMessage);
-            Assert.IsFalse(list.Any(f => f.IsDeleted), repositoryMessage);
+            Assert.IsFalse(list.Any(f => f.DeletedOn != null), repositoryMessage);
         }
 
         [Test]
@@ -32,6 +32,17 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
+                unitOfWork.BeginTransaction();
+
+                for (int i = 0; i < 20; i++)
+                {
+                    var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                    unitOfWork.Session.SaveOrUpdate(customer);
+
+                    var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                    unitOfWork.Session.SaveOrUpdate(agreement);                    
+                }
+                
                 ShouldLoadTop10EntitiesWithAllMethodSuccessfully(new AgreementRepository(unitOfWork));
                 ShouldLoadTop10EntitiesWithAllMethodSuccessfully(new CustomerRepository(unitOfWork));
             }
@@ -52,6 +63,14 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
+                unitOfWork.BeginTransaction();
+
+                var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                unitOfWork.Session.SaveOrUpdate(customer);
+
+                var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                unitOfWork.Session.SaveOrUpdate(agreement);
+
                 ShouldGetAnyEntitySuccessfully(new AgreementRepository(unitOfWork));
                 ShouldGetAnyEntitySuccessfully(new CustomerRepository(unitOfWork));
             }
@@ -73,6 +92,14 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
+                unitOfWork.BeginTransaction();
+
+                var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                unitOfWork.Session.SaveOrUpdate(customer);
+
+                var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                unitOfWork.Session.SaveOrUpdate(agreement);
+
                 ShouldFindAnyEntityByFilterSuccessfully(new AgreementRepository(unitOfWork));
                 ShouldFindAnyEntityByFilterSuccessfully(new CustomerRepository(unitOfWork));
             }
@@ -92,9 +119,9 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
             Assert.IsNotNull(entitieViaFilterBy);
 
             Assert.AreEqual(entities.Count, entitieViaFilterBy.Count);
-            for (int i = 0; i < entities.Count; i++)
+            foreach (TEntity t in entities)
             {
-                Assert.AreEqual(entities[i], entitieViaFilterBy.FirstOrDefault(f => f.Id == entities[i].Id),
+                Assert.AreEqual(t, entitieViaFilterBy.FirstOrDefault(f => f.Id == t.Id),
                                 repositoryMessage);
             }
         }
@@ -104,6 +131,14 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
+                unitOfWork.BeginTransaction();
+
+                var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                unitOfWork.Session.SaveOrUpdate(customer);
+
+                var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                unitOfWork.Session.SaveOrUpdate(agreement);
+
                 ShouldFilterEntitiesByFilterSuccessfully(new AgreementRepository(unitOfWork));
                 ShouldFilterEntitiesByFilterSuccessfully(new CustomerRepository(unitOfWork));
             }
@@ -126,6 +161,14 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
+                unitOfWork.BeginTransaction();
+
+                var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                unitOfWork.Session.SaveOrUpdate(customer);
+
+                var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                unitOfWork.Session.SaveOrUpdate(agreement);
+
                 ShouldCheckEntityForExistenceSuccessfully(new AgreementRepository(unitOfWork));
                 ShouldCheckEntityForExistenceSuccessfully(new CustomerRepository(unitOfWork));
             }
@@ -167,16 +210,10 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
-                try
-                {
-                    unitOfWork.BeginTransaction();
-                    Customer newCustomer = Singleton.TestDataProvider.CreateNewRandomCustomer();
-                    ShouldSaveUpdateAndDeleteEntitySuccessfully(unitOfWork, new CustomerRepository(unitOfWork), newCustomer);
-                }
-                finally
-                {
-                    unitOfWork.Rollback();
-                }
+                unitOfWork.BeginTransaction();
+
+                var  customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                ShouldSaveUpdateAndDeleteEntitySuccessfully(unitOfWork, new CustomerRepository(unitOfWork), customer);
             }
         }
 
@@ -185,17 +222,11 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         {
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
-                try
-                {
-                    unitOfWork.BeginTransaction();
-                    Customer newCustomer = Singleton.TestDataProvider.CreateNewRandomCustomer();
-                    Agreement newAgreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(newCustomer);
-                    ShouldSaveUpdateAndDeleteEntitySuccessfully(unitOfWork, new AgreementRepository(unitOfWork), newAgreement);
-                }
-                finally
-                {
-                    unitOfWork.Rollback();
-                }
+                unitOfWork.BeginTransaction();
+
+                var customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
+                var agreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(customer);
+                ShouldSaveUpdateAndDeleteEntitySuccessfully(unitOfWork, new AgreementRepository(unitOfWork), agreement);
             }
         }
 
@@ -203,34 +234,26 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
         public void Check_Disposed_UnitOfWork()
         {
             ICustomerRepository customerRepository;
+
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {                
                 customerRepository = new CustomerRepository(unitOfWork);                
             }
 
-            Assert.Catch<ObjectDisposedException>(delegate
-                                                      {
-                                                          customerRepository.Any(f => f.Id > 0);
-                                                      });                                                       
+            Assert.Catch<ObjectDisposedException>(() => customerRepository.Any(f => f.Id > 0));                                                       
         }
 
         [Test]
         public void Check_Entity_Not_Found_Exception()
         {
-            ICustomerRepository customerRepository;
             using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
             {
-                customerRepository = new CustomerRepository(unitOfWork);
-                Assert.Catch<EntityNotFoundException>(delegate
-                                                          {
-                                                              customerRepository.First(-1);
-                                                          });
+                ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
 
-                Assert.Catch<EntityNotFoundException>(delegate
-                                                          {
-                                                              customerRepository.First(
-                                                                  f => f.Name == Guid.NewGuid().ToString());
-                                                          });
+                Assert.Catch<EntityNotFoundException>(() => customerRepository.First(-1));
+
+                Assert.Catch<EntityNotFoundException>(
+                    () => customerRepository.First(f => f.Name == Guid.NewGuid().ToString()));
             }
         }
 
@@ -252,7 +275,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
                 using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
                 {
                     ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
-                    Customer customer2 = customerRepository.FirstOrDefault(customer.Id);
+                    var customer2 = customerRepository.FirstOrDefault(customer.Id);
                     customer2.Name = updatedName;
                     customerRepository.Save(customer2);
                     unitOfWork.Commit();                    
@@ -272,8 +295,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
                 {
                     using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
                     {
-                        ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
-                        customerRepository.Delete(customer.Id);
+                        unitOfWork.Session.Delete(customer);
                         unitOfWork.Commit();                        
                     }
                 }
@@ -302,7 +324,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
                     unitOfWork.BeginTransaction();
 
                     ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
-                    Customer customer2 = customerRepository.FirstOrDefault(customer.Id);
+                    var customer2 = customerRepository.FirstOrDefault(customer.Id);
                     customer2.Name = updatedName;
                     customerRepository.Save(customer2);
                     unitOfWork.Commit();
@@ -322,8 +344,7 @@ namespace DevBridge.Templates.WebProject.Tests.DataContracts
                 {
                     using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
                     {
-                        ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
-                        customerRepository.Delete(customer.Id);
+                        unitOfWork.Session.Delete(customer);
                         unitOfWork.Commit();
                     }
                 }

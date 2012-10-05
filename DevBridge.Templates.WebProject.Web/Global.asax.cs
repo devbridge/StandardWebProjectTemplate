@@ -9,7 +9,6 @@ using DevBridge.Templates.WebProject.ServiceContracts;
 using DevBridge.Templates.WebProject.Services;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
 using Unity.Mvc3;
 
 namespace DevBridge.Templates.WebProject.Web
@@ -17,7 +16,6 @@ namespace DevBridge.Templates.WebProject.Web
     public class WebApplication : System.Web.HttpApplication
     {
         private static readonly ILog log = LogManager.GetCurrentClassLogger();
-        private const string ApplicationName = "DevBridge.Templates.WebProject";
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
@@ -46,11 +44,11 @@ namespace DevBridge.Templates.WebProject.Web
                 RegisterGlobalFilters(GlobalFilters.Filters);
                 RegisterRoutes(RouteTable.Routes);
                 
-                log.Info(string.Format("{0} site started...", ApplicationName));
+                log.Info("Site started...");
             }
             catch (Exception ex)
             {
-                log.Fatal(string.Format("Failed to start {0} site.", ApplicationName), ex);
+                log.Fatal("Failed to start site.", ex);
                 throw;
             }
         }
@@ -58,12 +56,12 @@ namespace DevBridge.Templates.WebProject.Web
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
-            log.Fatal(string.Format("Unhandled exception occurred in {0}.", ApplicationName), ex);
+            log.Fatal("Unhandled exception occurred.", ex);
         }
 
         protected void Application_End(object sender, EventArgs e)
         {
-            log.Info(string.Format("{0} site stopped...", ApplicationName));
+            log.Info("Site stopped...");
         }
 
         private static void InitializeDependencyInjectionContainer()
@@ -83,7 +81,9 @@ namespace DevBridge.Templates.WebProject.Web
                 .RegisterType<ICachingService, CachingService>(new ContainerControlledLifetimeManager())
                 .RegisterType<IConfigurationLoaderService, ConfigurationLoaderService>(new ContainerControlledLifetimeManager());
 
-            ServiceLocator.SetLocatorProvider(() => new UnityServiceLocator(container));
+            var serviceLocator = new UnityServiceLocator(container);
+
+            ServiceLocator.SetLocatorProvider(() => serviceLocator);
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }
