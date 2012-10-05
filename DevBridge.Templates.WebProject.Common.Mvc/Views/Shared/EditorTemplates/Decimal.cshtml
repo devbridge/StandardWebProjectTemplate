@@ -3,6 +3,6 @@
 	object formattedValue = ViewData.TemplateInfo.FormattedModelValue == ViewData.ModelMetadata.Model ?
 		String.Format(System.Globalization.CultureInfo.CurrentCulture, "{0:0.00}", ViewData.ModelMetadata.Model) :
 		ViewData.TemplateInfo.FormattedModelValue;
-	His.Web.Infrastructure.DataAnnotations.FilteredInputAttribute.RegisterScriptsForModel(Html);
+	//His.Web.Infrastructure.DataAnnotations.FilteredInputAttribute.RegisterScriptsForModel(Html);
 }
 @Html.TextBox(String.Empty, formattedValue, HtmlAttributeHelper.GetTextBoxAttributes(ViewData))
