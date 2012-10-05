@@ -5,8 +5,10 @@ using DevBridge.Templates.WebProject.ServiceContracts;
 
 namespace DevBridge.Templates.WebProject.Services
 {
+	//TODO: Config like Singleton
     public class ConfigurationLoaderService : IConfigurationLoaderService
     {
+		private Configuration config;
         private T TraverseConfigSections<T>(ConfigurationSectionGroup group) where T : ConfigurationSection
         {
             foreach (ConfigurationSection section in group.Sections)
@@ -28,11 +30,10 @@ namespace DevBridge.Templates.WebProject.Services
         private T GetConfig<T>() where T : ConfigurationSection
         {
             T section = null;
-            Configuration config = null;
 
             try
             {
-                config = WebConfigurationManager.OpenWebConfiguration("~/Web.config");
+				config = config ?? WebConfigurationManager.OpenWebConfiguration("~/Web.config");
             }
             catch { }
 
