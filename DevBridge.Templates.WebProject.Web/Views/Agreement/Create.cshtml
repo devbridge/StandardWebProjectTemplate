@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model DevBridge.Templates.WebProject.Web.Logic.Models.Agreement.CreateAgreementViewModel
+<h2>Create agreement</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(f => f.CustomerId)
+    @Html.TextBoxFor(f => f.Name)
+   <input type="submit" value="Save"/>
+}
+

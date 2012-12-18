@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{9E501353-A861-48B1-B1EC-041E3CDDD01F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9A39A404-2832-40A5-8CE7-A7EFDE2FA6B2}"
@@ -9,6 +9,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{564671
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{5E24B40E-7574-4525-8CFD-3A3E3389FC1F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{C3535A05-6E38-4E6E-9654-03C5BA3F0AC2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{12F05EF0-CAFF-4E74-962C-8B817A362E33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Version", "Version", "{D44D6C30-636B-4E49-BFF5-704B814E6420}"
+	ProjectSection(SolutionItems) = preProject
+		AssemblyVersion.cs = AssemblyVersion.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{12238BE3-4B72-46A8-B95D-F09341F5BEB4}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.DatabaseChanges", "DevBridge.Templates.WebProject.DatabaseChanges\DevBridge.Templates.WebProject.DatabaseChanges.csproj", "{6BD15E13-0BAD-4837-8056-A8C9713FD347}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.Environments", "DevBridge.Templates.WebProject.Environments\DevBridge.Templates.WebProject.Environments.csproj", "{A751E4C8-BD87-46B9-A437-1BBB73963919}"
@@ -16,10 +30,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.Web", "DevBridge.Templates.WebProject.Web\DevBridge.Templates.WebProject.Web.csproj", "{07A68F5F-9F2C-4567-B096-FE9063D5A9BB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.Tests", "DevBridge.Templates.WebProject.Tests\DevBridge.Templates.WebProject.Tests.csproj", "{00B3D466-199F-4B36-B145-5D208E8A39F2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{C3535A05-6E38-4E6E-9654-03C5BA3F0AC2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{12F05EF0-CAFF-4E74-962C-8B817A362E33}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.ServiceContracts", "DevBridge.Templates.WebProject.ServiceContracts\DevBridge.Templates.WebProject.ServiceContracts.csproj", "{0F01C633-D2BC-4DE5-951D-66D4B4AF082C}"
 EndProject
@@ -31,15 +41,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.Data", "DevBridge.Templates.WebProject.Data\DevBridge.Templates.WebProject.Data.csproj", "{2C22D2A2-40E5-4475-9DC9-48B6B0D0D2EF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Version", "Version", "{D44D6C30-636B-4E49-BFF5-704B814E6420}"
-	ProjectSection(SolutionItems) = preProject
-		AssemblyVersion.cs = AssemblyVersion.cs
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.Tools", "DevBridge.Templates.WebProject.Tools\DevBridge.Templates.WebProject.Tools.csproj", "{8FC6C0E9-A2EA-47E0-8611-C74BC615BF75}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{12238BE3-4B72-46A8-B95D-F09341F5BEB4}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevBridge.Templates.WebProject.Web.Logic", "DevBridge.Templates.WebProject.Web.Logic\DevBridge.Templates.WebProject.Web.Logic.csproj", "{A7D79888-A401-4E49-A1FF-B659CE63D411}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +87,14 @@ Global
 		{2C22D2A2-40E5-4475-9DC9-48B6B0D0D2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C22D2A2-40E5-4475-9DC9-48B6B0D0D2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C22D2A2-40E5-4475-9DC9-48B6B0D0D2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FC6C0E9-A2EA-47E0-8611-C74BC615BF75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FC6C0E9-A2EA-47E0-8611-C74BC615BF75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FC6C0E9-A2EA-47E0-8611-C74BC615BF75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FC6C0E9-A2EA-47E0-8611-C74BC615BF75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7D79888-A401-4E49-A1FF-B659CE63D411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7D79888-A401-4E49-A1FF-B659CE63D411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7D79888-A401-4E49-A1FF-B659CE63D411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7D79888-A401-4E49-A1FF-B659CE63D411}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +107,8 @@ Global
 		{C3535A05-6E38-4E6E-9654-03C5BA3F0AC2} = {564671DA-7628-43F3-8E35-C58836BECB1D}
 		{12F05EF0-CAFF-4E74-962C-8B817A362E33} = {564671DA-7628-43F3-8E35-C58836BECB1D}
 		{07A68F5F-9F2C-4567-B096-FE9063D5A9BB} = {5E24B40E-7574-4525-8CFD-3A3E3389FC1F}
+		{8FC6C0E9-A2EA-47E0-8611-C74BC615BF75} = {5E24B40E-7574-4525-8CFD-3A3E3389FC1F}
+		{A7D79888-A401-4E49-A1FF-B659CE63D411} = {5E24B40E-7574-4525-8CFD-3A3E3389FC1F}
 		{0F01C633-D2BC-4DE5-951D-66D4B4AF082C} = {C3535A05-6E38-4E6E-9654-03C5BA3F0AC2}
 		{54395C2E-F793-4BAB-B21E-FD43B374DB49} = {C3535A05-6E38-4E6E-9654-03C5BA3F0AC2}
 		{44EB262A-2060-4906-B5B1-722F9BB1775B} = {12F05EF0-CAFF-4E74-962C-8B817A362E33}
@@ -102,6 +116,6 @@ Global
 		{2C22D2A2-40E5-4475-9DC9-48B6B0D0D2EF} = {12F05EF0-CAFF-4E74-962C-8B817A362E33}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

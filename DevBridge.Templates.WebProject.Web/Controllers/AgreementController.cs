@@ -1,24 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using DevBridge.Templates.WebProject.ServiceContracts;
-using DevBridge.Templates.WebProject.Web.Models.AgreementViewModels;
+using DevBridge.Templates.WebProject.Tools;
+using DevBridge.Templates.WebProject.Web.Logic.Commands.Agreement.CreateAgreement;
+using DevBridge.Templates.WebProject.Web.Logic.Commands.Agreement.GetAgreements;
 using Microsoft.Practices.Unity;
 
 namespace DevBridge.Templates.WebProject.Web.Controllers
 {
-    public class AgreementController : Controller
+    public partial class AgreementController : Tools.Mvc.ExtendedControllerBase
     {
         [Dependency]
         public IAgreementManagementService AgreementManagementService { get; set; }
 
-        public ActionResult List()
+        public virtual ActionResult List(GetAgreementsFilter filter)
         {
-            AgreementListViewModel model = new AgreementListViewModel();
-            model.Agreements = AgreementManagementService.GetAgreements();
+            var model = GetCommand<GetAgreementsCommand>().Execute(filter);            
             return View(model);
         }        
+
+        [HttpPost]
+        public virtual ActionResult Create(CreateAgreementCommand createAgreement)
+        {
+            return Content("TODO: create");
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using DevBridge.Templates.WebProject.Web.Models.AgreementViewModels
-@model AgreementListViewModel
+﻿@model DevBridge.Templates.WebProject.Web.Logic.Models.Agreement.AgreementListViewModel
 
 @{
     ViewBag.Title = "Agreements";
@@ -7,6 +6,8 @@
 }
 
 <h2>Agreements</h2>
+<ul>
 @foreach (var agreement in Model.Agreements) {
-<text>@agreement.Number<br /></text>
+    Html.RenderPartial(MVC.Agreement.Views.Partial.AgreementItem, agreement);
 }
+</ul>

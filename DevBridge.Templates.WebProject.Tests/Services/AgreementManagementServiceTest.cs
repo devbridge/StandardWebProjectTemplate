@@ -21,13 +21,8 @@ namespace DevBridge.Templates.WebProject.Tests.Services
         {
             using (IUnitOfWork unitOfWork = Singleton.UnitOfWorkFactory.New())
             {
-                ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
-                IAgreementRepository agreementRepository = new AgreementRepository(unitOfWork);
-
                 IAgreementManagementService agreementManagementService =
-                    new AgreementManagementService(agreementRepository,
-                                                   customerRepository,
-                                                   Singleton.UnitOfWorkFactory, Singleton.ConfigurationLoaderService);
+                    new AgreementManagementService(unitOfWork, Singleton.ConfigurationLoaderService);
 
                 Exception ex = Assert.Catch<AgreementManagementException>(delegate
                                                                               {
@@ -51,9 +46,6 @@ namespace DevBridge.Templates.WebProject.Tests.Services
                 var newAgreement = Singleton.TestDataProvider.CreateNewRandomAgreementForCustomer(newCustomer);
                 unitOfWork.Session.SaveOrUpdate(newAgreement);
 
-                ICustomerRepository customerRepository = new CustomerRepository(unitOfWork);
-                IAgreementRepository agreementRepository = new AgreementRepository(unitOfWork);
-
                 Mock<IUnitOfWork> unitOfWorkMock = new Mock<IUnitOfWork>();
                 unitOfWorkMock.Setup(f => f.BeginTransaction()).Verifiable();
                 unitOfWorkMock.Setup(f => f.Commit()).Callback(() => unitOfWork.Session.Flush()).Verifiable();
@@ -64,12 +56,10 @@ namespace DevBridge.Templates.WebProject.Tests.Services
                 unitOfWorkFactoryMock.Setup(f => f.New()).Returns(unitOfWorkMock.Object);
 
                 IAgreementManagementService agreementManagementService =
-                    new AgreementManagementService(agreementRepository,
-                                                   customerRepository,
-                                                   unitOfWorkFactoryMock.Object,
+                    new AgreementManagementService(unitOfWork,
                                                    Singleton.ConfigurationLoaderService);
 
-                var customer = agreementRepository.AsQueryable().Fetch(f => f.Customer).First().Customer;
+                var customer = unitOfWork.Session.Query<Agreement>().Fetch(f => f.Customer).First().Customer;
                 Assert.IsNotNull(customer);
                 
                 var agreement = agreementManagementService.ExtendAgreement(customer.Id);
@@ -83,7 +73,7 @@ namespace DevBridge.Templates.WebProject.Tests.Services
         [Test]
         public void Should_Generate_Valid_Agreement_Number()
         {
-            IAgreementManagementService service = new AgreementManagementService(null, null, null, Singleton.ConfigurationLoaderService);
+            IAgreementManagementService service = new AgreementManagementService(null, Singleton.ConfigurationLoaderService);
             var config = Singleton.ConfigurationLoaderService.LoadConfig<AgreementManagementServiceConfiguration>();
             string number = service.GenerateAgreementNumber();
             Assert.IsNotNull(number);
@@ -105,10 +95,7 @@ namespace DevBridge.Templates.WebProject.Tests.Services
                 unitOfWork.Session.SaveOrUpdate(agreement);
 
                 IAgreementManagementService agreementManagementService =
-                    new AgreementManagementService(new AgreementRepository(unitOfWork), 
-                                                   new CustomerRepository(unitOfWork), 
-                                                   Singleton.UnitOfWorkFactory,
-                                                   Singleton.ConfigurationLoaderService);
+                    new AgreementManagementService(unitOfWork, Singleton.ConfigurationLoaderService);
 
                 var list = agreementManagementService.GetAgreements();
                 Assert.IsNotNull(list);

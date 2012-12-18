@@ -40,9 +40,6 @@ namespace DevBridge.Templates.WebProject.Tests.TestHelpers
                 .RegisterType<IRegistrationService, RegistrationService>(new HierarchicalLifetimeManager())
                 .RegisterType<IDataListingService, DataListingService>(new HierarchicalLifetimeManager())
 
-                .RegisterType<IAgreementRepository, AgreementRepository>(new HierarchicalLifetimeManager())
-                .RegisterType<ICustomerRepository, CustomerRepository>(new HierarchicalLifetimeManager())
-                
                 .RegisterType<IConfigurationLoaderService, ConfigurationLoaderService>(new ContainerControlledLifetimeManager());
         }
     }

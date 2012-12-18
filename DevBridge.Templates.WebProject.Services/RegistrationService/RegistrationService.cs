@@ -5,18 +5,18 @@ using DevBridge.Templates.WebProject.DataEntities.Entities;
 using DevBridge.Templates.WebProject.DataEntities.Enums;
 using DevBridge.Templates.WebProject.ServiceContracts;
 
+using NHibernate;
+
 namespace DevBridge.Templates.WebProject.Services
 {
     public class RegistrationService : IRegistrationService
     {
         private readonly IAgreementManagementService agreementManagementService;
-        private readonly ICustomerRepository customerRepository;
         private readonly IUnitOfWork unitOfWork;
 
-        public RegistrationService(IUnitOfWork unitOfWork, IAgreementManagementService agreementManagementService, ICustomerRepository customerRepository)
+        public RegistrationService(IUnitOfWork unitOfWork, IAgreementManagementService agreementManagementService)
         {
             this.agreementManagementService = agreementManagementService;
-            this.customerRepository = customerRepository;
             this.unitOfWork = unitOfWork;
         }
 
@@ -39,7 +39,7 @@ namespace DevBridge.Templates.WebProject.Services
                                                 CreatedOn =  DateTime.Now,
                                                 Customer = customer
                                             });
-                customerRepository.Save(customer);
+                unitOfWork.Session.Save(customer);
                 unitOfWork.Commit();
             }
             catch (Exception ex)
@@ -52,7 +52,8 @@ namespace DevBridge.Templates.WebProject.Services
         {
             try
             {
-                customerRepository.Delete(id);
+                var customer = unitOfWork.Session.Load<Customer>(id, LockMode.None);
+                unitOfWork.Session.Delete(customer);
                 unitOfWork.Commit();
             }
             catch (Exception ex)

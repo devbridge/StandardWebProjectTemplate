@@ -10,6 +10,7 @@ namespace DevBridge.Templates.WebProject.Data.DataContext
     public class SessionFactoryProvider : ISessionFactoryProvider
     {
         private readonly static object lockObject = new object();
+
         private volatile ISessionFactory sessionFactory;
 
         public ISessionFactory SessionFactory
@@ -38,6 +39,9 @@ namespace DevBridge.Templates.WebProject.Data.DataContext
                                     .AddFromAssemblyOf<IEntity>()
                                     .Conventions.Add(ForeignKey.EndsWith("Id"))
                                     .Conventions.Add<EnumConvention>())
+
+                 .ExposeConfiguration(c => c.SetInterceptor(new StaleInterceptor()))
+
                  .BuildConfiguration()
                  .BuildSessionFactory();
         }

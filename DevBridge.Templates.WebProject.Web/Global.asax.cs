@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Web.Mvc;
 using System.Web.Routing;
+
+using BetterCms.Core.Mvc.Commands;
+
 using Common.Logging;
 using DevBridge.Templates.WebProject.Data;
 using DevBridge.Templates.WebProject.Data.DataContext;
 using DevBridge.Templates.WebProject.DataContracts;
 using DevBridge.Templates.WebProject.ServiceContracts;
 using DevBridge.Templates.WebProject.Services;
+using DevBridge.Templates.WebProject.Tools.Commands;
+
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Unity.Mvc3;
@@ -66,20 +71,16 @@ namespace DevBridge.Templates.WebProject.Web
 
         private static void InitializeDependencyInjectionContainer()
         {
-            var container = new UnityContainer()
-                .RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager())
-                .RegisterType<ISessionFactoryProvider, SessionFactoryProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<IUnitOfWorkFactory, UnitOfWorkFactory>(new ContainerControlledLifetimeManager())
-
-                .RegisterType<IAgreementManagementService, AgreementManagementService>(new HierarchicalLifetimeManager())
-                .RegisterType<IRegistrationService, RegistrationService>(new HierarchicalLifetimeManager())
-                .RegisterType<IDataListingService, DataListingService>(new HierarchicalLifetimeManager())
-
-                .RegisterType<IAgreementRepository, AgreementRepository>(new HierarchicalLifetimeManager())
-                .RegisterType<ICustomerRepository, CustomerRepository>(new HierarchicalLifetimeManager())
-
-                .RegisterType<ICachingService, CachingService>(new ContainerControlledLifetimeManager())
-                .RegisterType<IConfigurationLoaderService, ConfigurationLoaderService>(new ContainerControlledLifetimeManager());
+            var container =
+                new UnityContainer().RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager())
+                                    .RegisterType<ISessionFactoryProvider, SessionFactoryProvider>(new ContainerControlledLifetimeManager())
+                                    .RegisterType<IUnitOfWorkFactory, UnitOfWorkFactory>(new ContainerControlledLifetimeManager())
+                                    .RegisterType<IAgreementManagementService, AgreementManagementService>(new HierarchicalLifetimeManager())
+                                    .RegisterType<IRegistrationService, RegistrationService>(new HierarchicalLifetimeManager())
+                                    .RegisterType<IDataListingService, DataListingService>(new HierarchicalLifetimeManager())
+                                    .RegisterType<ICachingService, CachingService>(new ContainerControlledLifetimeManager())
+                                    .RegisterType<IConfigurationLoaderService, ConfigurationLoaderService>(new ContainerControlledLifetimeManager())
+                                    .RegisterType<ICommandResolver, DefaultCommandResolver>(new HierarchicalLifetimeManager());
 
             var serviceLocator = new UnityServiceLocator(container);
 

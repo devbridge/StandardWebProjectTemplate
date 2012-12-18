@@ -5,24 +5,21 @@ using DevBridge.Templates.WebProject.DataContracts;
 using DevBridge.Templates.WebProject.DataEntities.Entities;
 using DevBridge.Templates.WebProject.ServiceContracts;
 
+using NHibernate.Linq;
+
 namespace DevBridge.Templates.WebProject.Services
 {
     public class AgreementManagementService : IAgreementManagementService
     {
-        private readonly IUnitOfWorkFactory unitOfWorkFactory;
-        private readonly IAgreementRepository agreementRepository;
-        private readonly ICustomerRepository customerRepository;
         private readonly AgreementManagementServiceConfiguration configuration;
 
-        public AgreementManagementService(IAgreementRepository agreementRepository,
-                                          ICustomerRepository customerRepository,
-                                          IUnitOfWorkFactory unitOfWorkFactory,
+        private IUnitOfWork unitOfWork;
+
+        public AgreementManagementService(IUnitOfWork unitOfWork,
                                           IConfigurationLoaderService configurationLoaderService)
         {
+            this.unitOfWork = unitOfWork;
             configuration = configurationLoaderService.LoadConfig<AgreementManagementServiceConfiguration>();
-            this.unitOfWorkFactory = unitOfWorkFactory;
-            this.agreementRepository = agreementRepository;
-            this.customerRepository = customerRepository;
         }
 
         public string GenerateAgreementNumber()
@@ -42,34 +39,33 @@ namespace DevBridge.Templates.WebProject.Services
         {
             try
             {
-                using (IUnitOfWork unitOfWork = unitOfWorkFactory.New())
+                try
                 {
-                    try
-                    {
-                        unitOfWork.BeginTransaction();
-                        customerRepository.Use(unitOfWork);
-                        agreementRepository.Use(unitOfWork);
+                    unitOfWork.BeginTransaction();
 
-                        Customer customer = customerRepository.First(customerId);
+                    Customer customer = unitOfWork.Session.Query<Customer>().FetchMany(f => f.Agreements).FirstOrDefault(f => f.Id == customerId && f.DeletedOn == null);
+                    if (customer != null)
+                    {
                         foreach (var agreement in customer.Agreements)
                         {
-                            agreementRepository.Delete(agreement);
+                            unitOfWork.Session.Delete(agreement);
                         }
-
-                        Agreement extendedAgreement = new Agreement();
-                        extendedAgreement.Customer = customer;
-                        extendedAgreement.Number = GenerateAgreementNumber();
-                        extendedAgreement.CreatedOn = DateTime.Now;
-                        agreementRepository.Save(extendedAgreement);
-                        unitOfWork.Commit();
-
-                        return extendedAgreement;
                     }
-                    catch (Exception)
-                    {
-                        unitOfWork.Rollback();
-                        throw;
-                    }
+
+                    Agreement extendedAgreement = new Agreement();
+                    extendedAgreement.Customer = customer;
+                    extendedAgreement.Number = GenerateAgreementNumber();
+                    extendedAgreement.CreatedOn = DateTime.Now;
+
+                    unitOfWork.Session.SaveOrUpdate(extendedAgreement);
+                    unitOfWork.Commit();
+
+                    return extendedAgreement;
+                }
+                catch (Exception)
+                {
+                    unitOfWork.Rollback();
+                    throw;
                 }
             }
             catch (Exception ex)
@@ -82,12 +78,12 @@ namespace DevBridge.Templates.WebProject.Services
         {
             try
             {
-                return agreementRepository.AsQueryable().ToList();
+                return unitOfWork.Session.Query<Agreement>().Where(f => f.DeletedOn == null).ToList();
             }
             catch (Exception ex)
             {                
                 throw new AgreementManagementException("Failed to retrieve agreements list.", ex);
-            }            
+            }
         }
     }
 }

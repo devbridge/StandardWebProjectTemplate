@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace DevBridge.Templates.WebProject.Web.Models
+namespace DevBridge.Templates.WebProject.Web.Logic.Models
 {
 
     public class ChangePasswordModel

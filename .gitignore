@@ -27,3 +27,5 @@ packages/**
 TestResults
 test-results
 
+/UpgradeLog.XML
+/UpgradeLog.htm
