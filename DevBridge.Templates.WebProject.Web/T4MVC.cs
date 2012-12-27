@@ -25,6 +25,7 @@ using T4MVC;
 public static class MVC {
     public static DevBridge.Templates.WebProject.Web.Controllers.AgreementController Agreement = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_AgreementController();
     public static DevBridge.Templates.WebProject.Web.Controllers.HomeController Home = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_HomeController();
+    public static DevBridge.Templates.WebProject.Web.Controllers.PresentationController Presentation = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_PresentationController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -405,9 +406,6 @@ namespace Links {
     
         public static readonly string jquery_modal_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.modal.min.js") ? Url("jquery.modal.min.js") : Url("jquery.modal.js");
                       
-        public static readonly string require_jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/require-jquery.min.js") ? Url("require-jquery.min.js") : Url("require-jquery.js");
-                      
-        public static readonly string require_jquery_min_js = Url("require-jquery.min.js");
         public static readonly string require_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/require.min.js") ? Url("require.min.js") : Url("require.js");
                       
     }
@@ -419,70 +417,6 @@ namespace Links {
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public static class themes {
-            private const string URLPATH = "~/Content/themes";
-            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-            public static class @base {
-                private const string URLPATH = "~/Content/themes/base";
-                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
-                     
-                public static readonly string jquery_ui_accordion_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.accordion.min.css") ? Url("jquery.ui.accordion.min.css") : Url("jquery.ui.accordion.css");
-                     
-                public static readonly string jquery_ui_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.all.min.css") ? Url("jquery.ui.all.min.css") : Url("jquery.ui.all.css");
-                     
-                public static readonly string jquery_ui_autocomplete_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.autocomplete.min.css") ? Url("jquery.ui.autocomplete.min.css") : Url("jquery.ui.autocomplete.css");
-                     
-                public static readonly string jquery_ui_base_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.base.min.css") ? Url("jquery.ui.base.min.css") : Url("jquery.ui.base.css");
-                     
-                public static readonly string jquery_ui_button_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.button.min.css") ? Url("jquery.ui.button.min.css") : Url("jquery.ui.button.css");
-                     
-                public static readonly string jquery_ui_core_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.core.min.css") ? Url("jquery.ui.core.min.css") : Url("jquery.ui.core.css");
-                     
-                public static readonly string jquery_ui_datepicker_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.datepicker.min.css") ? Url("jquery.ui.datepicker.min.css") : Url("jquery.ui.datepicker.css");
-                     
-                public static readonly string jquery_ui_dialog_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.dialog.min.css") ? Url("jquery.ui.dialog.min.css") : Url("jquery.ui.dialog.css");
-                     
-                public static readonly string jquery_ui_progressbar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.progressbar.min.css") ? Url("jquery.ui.progressbar.min.css") : Url("jquery.ui.progressbar.css");
-                     
-                public static readonly string jquery_ui_resizable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.resizable.min.css") ? Url("jquery.ui.resizable.min.css") : Url("jquery.ui.resizable.css");
-                     
-                public static readonly string jquery_ui_selectable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.selectable.min.css") ? Url("jquery.ui.selectable.min.css") : Url("jquery.ui.selectable.css");
-                     
-                public static readonly string jquery_ui_slider_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.slider.min.css") ? Url("jquery.ui.slider.min.css") : Url("jquery.ui.slider.css");
-                     
-                public static readonly string jquery_ui_tabs_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.tabs.min.css") ? Url("jquery.ui.tabs.min.css") : Url("jquery.ui.tabs.css");
-                     
-                public static readonly string jquery_ui_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.theme.min.css") ? Url("jquery.ui.theme.min.css") : Url("jquery.ui.theme.css");
-                     
-                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-                public static class minified {
-                    private const string URLPATH = "~/Content/themes/base/minified";
-                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
-                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
-                    public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
-                    public static readonly string jquery_ui_accordion_min_css = Url("jquery.ui.accordion.min.css");
-                    public static readonly string jquery_ui_autocomplete_min_css = Url("jquery.ui.autocomplete.min.css");
-                    public static readonly string jquery_ui_button_min_css = Url("jquery.ui.button.min.css");
-                    public static readonly string jquery_ui_core_min_css = Url("jquery.ui.core.min.css");
-                    public static readonly string jquery_ui_datepicker_min_css = Url("jquery.ui.datepicker.min.css");
-                    public static readonly string jquery_ui_dialog_min_css = Url("jquery.ui.dialog.min.css");
-                    public static readonly string jquery_ui_progressbar_min_css = Url("jquery.ui.progressbar.min.css");
-                    public static readonly string jquery_ui_resizable_min_css = Url("jquery.ui.resizable.min.css");
-                    public static readonly string jquery_ui_selectable_min_css = Url("jquery.ui.selectable.min.css");
-                    public static readonly string jquery_ui_slider_min_css = Url("jquery.ui.slider.min.css");
-                    public static readonly string jquery_ui_tabs_min_css = Url("jquery.ui.tabs.min.css");
-                    public static readonly string jquery_ui_theme_min_css = Url("jquery.ui.theme.min.css");
-                }
-            
-            }
-        
-        }
-    
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]

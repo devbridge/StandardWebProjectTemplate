@@ -1,8 +1,72 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "DevBridge Sample Web Project Template";
+    Layout = MVC.Shared.Views.Layout;
 }
 
-<h2>@ViewBag.Message</h2>
-<p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-</p>
+<p>This sample project contains sample implementation of the asp.net MVC web project. It is a collection 
+    of coding guidelines aimed at helping the ASP.NET MVC developer create solid applications. 
+    It's up to you as the developer to decide which of these implementations are appropriate 
+    for your application.</p>
+
+<h2>All code in any code-base should look like a single person typed it,<br />
+    no matter how many people contributed.</h2>
+
+<blockquote>
+    <q>Arguments over style are pointless. There should be a style guide, and you should follow it</q>
+    <p><em>Rebecca Murphey</em></p>
+</blockquote>
+
+<h3>Recommended Libraries</h3>
+<ul>
+    <li>T4MVC: <code>Install-Package T4MVC</code></li>
+    <li>NHibernate: <code>Install-Package NHibernate</code></li>
+    <li>Autofac as an IoC container: <code>Install-Package Autofac</code></li>
+    <li>Common Loggin : <code>Install-Package Common.Logging</code></li>
+    <li>NLog as common logging adapter: <code>Install-Package NLog</code></li>
+    <li>Json.NET: <code>Install-Package Newtonsoft.Json</code></li>
+    <li>Moq - mocking library for your unit tests: <code>Install-Package Moq</code></li>
+</ul>
+
+<h3>Client Side</h3>
+<p>Keep all JavaScript in external files. JsLint / JsHint all you scripts. Using a modular script 
+    loader like <a href="http://requirejs.org/">RequireJS</a> will improve the speed and quality of your code.</p>
+
+<p>Optimize scripts by bundling them toghether and minifying! RequireJS has an optimization tool that 
+    combines related scripts together into build layers and minifies them via UglifyJS. It is designed 
+    to be run as part of a build or packaging step after you are done with development and are 
+    ready to deploy.</p>
+
+<p>Have <a href="http://nodejs.org/">Node.js</a> installed on your machine. Create build configuration: <code>build.js</code>. Create batch script <code>build.bat</code> and call at pre-build.</p>
+
+<h4>build.js</h4>
+<pre>
+({
+    name: 'application',
+    baseUrl: '../',
+    optimize: 'uglify2',
+    exclude: ['jquery'],
+    paths: {
+        requireLib: 'require'
+    },
+    mainConfigFile: '../application.js',
+    out: '../application.min.js',
+    // A function that if defined will be called for every file read in the
+    // build that is done to trace JS dependencies.
+    // Remove references to console.log(...)
+    onBuildRead: function (moduleName, path, contents){
+        return contents.replace(/console.log(.*);/g, '');
+    }
+})
+</pre>
+
+<h4>build.bat</h4>
+<pre>
+cd /d %~dp0
+node r.js -o build.js
+</pre>
+
+<h4>Pre-Build Command Line</h4>
+<pre>
+call "$(ProjectDir)Scripts\build\build.bat"
+</pre>
+

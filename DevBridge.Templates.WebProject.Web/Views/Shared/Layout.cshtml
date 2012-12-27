@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Links.Content.Site_css" rel="stylesheet" type="text/css" />
+</head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <div id="logindisplay">
+                    @Html.Action(MVC.Presentation.LoginStatus())
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <header>
+                <div id="title">
+                    <h1>DevBridge Sample Web Project Template</h1>
+                </div>
+                <nav>
+                    <ul id="menu">
+                        <li><a href="@Url.Action(MVC.Home.Index())">Home</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <section id="main">
+                @RenderBody()
+                <div id="debug"></div>
+            </section>
+            <footer>
+            </footer>
+        </div>
+        @*<script type="text/javascript" data-main="@Links.Scripts.application_js"  src="@Links.Scripts.require_js"></script>*@
+        <script type="text/javascript">
+            (function (t) {
+                'use strict';
+                var a = document.createElement(t),
+                    b = document.getElementsByTagName(t)[0];
+                a.setAttribute('data-main', '@Links.Scripts.application_js');
+                a.type = 'text/javascript';
+                a.async = true;
+                a.src = '@Links.Scripts.require_js';
+                b.parentNode.insertBefore(a, b);
+            }('script'));
+        </script>
+    </body>
+</html>

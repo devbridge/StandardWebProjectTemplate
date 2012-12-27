@@ -49,6 +49,8 @@
     <Compile Include="Models\Agreement\AgreementItemViewModel.cs" />
     <Compile Include="Models\Agreement\AgreementListViewModel.cs" />
     <Compile Include="Models\Agreement\CreateAgreementViewModel.cs" />
+    <Compile Include="Models\Presentation\LoginViewModel.cs" />
+    <Compile Include="Models\Presentation\LoginStatusViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
