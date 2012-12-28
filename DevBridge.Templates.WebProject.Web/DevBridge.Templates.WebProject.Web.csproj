@@ -120,20 +120,20 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>Properties\AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="AccountController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="AgreementController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AgreementController.cs" />
-    <Compile Include="Controllers\PresentationController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CommandHandler.cs" />
     <Compile Include="HomeController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PresentationController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -158,9 +158,9 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\application.js" />
-    <Content Include="Scripts\application.min.js" />
     <Content Include="Scripts\build\build.js" />
     <Content Include="Scripts\build\r.js" />
+    <Content Include="Scripts\forms.js" />
     <Content Include="Scripts\jquery.modal.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Web.config" />
@@ -250,13 +250,16 @@
     <Content Include="Scripts\application.min.js.map">
       <DependentUpon>application.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\application.min.js">
+      <DependentUpon>application.js</DependentUpon>
+    </Content>
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <None Include="T4MVC.tt.settings.t4" />
-    <Content Include="Views\Presentation\LoginStatus.cshtml" />
-    <Content Include="Views\Presentation\LoginForm.cshtml" />
+    <Content Include="Views\Account\LoginStatus.cshtml" />
+    <Content Include="Views\Account\LoginForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Global.resx">

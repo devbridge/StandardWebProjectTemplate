@@ -23,9 +23,9 @@ using T4MVC;
 
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static class MVC {
+    public static DevBridge.Templates.WebProject.Web.Controllers.AccountController Account = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_AccountController();
     public static DevBridge.Templates.WebProject.Web.Controllers.AgreementController Agreement = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_AgreementController();
     public static DevBridge.Templates.WebProject.Web.Controllers.HomeController Home = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_HomeController();
-    public static DevBridge.Templates.WebProject.Web.Controllers.PresentationController Presentation = new DevBridge.Templates.WebProject.Web.Controllers.T4MVC_PresentationController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
 
@@ -390,8 +390,8 @@ namespace Links {
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string application_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/application.min.js") ? Url("application.min.js") : Url("application.js");
                       
-        public static readonly string application_min_js_map = Url("application.min.js.map");
         public static readonly string application_min_js = Url("application.min.js");
+        public static readonly string application_min_js_map = Url("application.min.js.map");
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public static class build {
             private const string URLPATH = "~/Scripts/build";
@@ -404,6 +404,8 @@ namespace Links {
                           
         }
     
+        public static readonly string forms_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/forms.min.js") ? Url("forms.min.js") : Url("forms.js");
+                      
         public static readonly string jquery_modal_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.modal.min.js") ? Url("jquery.modal.min.js") : Url("jquery.modal.js");
                       
         public static readonly string require_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/require.min.js") ? Url("require.min.js") : Url("require.js");

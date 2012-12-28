@@ -8,7 +8,7 @@ require.config({
 });
 
 // This is application entry point.
-require(['jquery', 'jquery.modal'], function ($) {
+require(['jquery', 'forms', 'jquery.modal'], function ($, forms) {
     'use strict';
 
     var console = window.console || { log: function () { } };
@@ -18,6 +18,7 @@ require(['jquery', 'jquery.modal'], function ($) {
     console.log('Modal version: ' + $.Modal.version);
 
     // $('#debug').html('Scripts loaded');
+    forms.init();
 
     // Every element marked with "modal" class will open modal dialog:
     $(document).on('click', '.modal', function (e) {

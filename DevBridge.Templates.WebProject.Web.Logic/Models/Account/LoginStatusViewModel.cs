@@ -1,4 +1,4 @@
-﻿namespace DevBridge.Templates.WebProject.Web.Logic.Models.Presentation
+﻿namespace DevBridge.Templates.WebProject.Web.Logic.Models.Account
 {
     public class LoginStatusViewModel
     {

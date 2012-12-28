@@ -11,6 +11,24 @@ pre { font-size: 12px; font-family: Consolas, "Liberation Mono", Courier, monosp
 blockquote { border-left: 4px solid #DDD; padding: 0 15px; color: #777; margin: 15px 0; }
     blockquote q { font-size: 18px; }
 
+/* Forms */
+.f-ajax { /* forms marked with this class will processed via AJAX */ }
+.f-ajax-show { display: none; }
+.f-submitting { /* while form is being submitted it has this class applied */ }
+    .f-submitting .f-ajax-hide { display: none; }
+    .f-submitting .f-ajax-show { display: block; }
+
+.f-ajax-errors { background: maroon; color: #FFF; padding: 10px; margin: 10px 0; }
+
+/* Login form */
+.login-form { width: 308px; margin: 0 auto; }
+    .login-form label { display: block; }
+    .login-form .textbox { width: 300px; font-size: 16px; padding: 4px; }
+
+.submit-btn { font-weight: bold; cursor: pointer; color: #FFF; width: 132px; margin-bottom: 12px; line-height: 1em; padding: 6px 6px 6px 7px; background: #AF0011; background: -moz-linear-gradient(top, #AF0011 0%, #820011 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#dddddd)); background: -webkit-linear-gradient(top, #AF0011 0%,#820011 100%); background: -o-linear-gradient(top, #AF0011 0%,#820011 100%); background: -ms-linear-gradient(top, #AF0011 0%,#820011 100%); background: linear-gradient(top, #AF0011 0,#820011 100%); border-radius: 0px; border: 1px solid #0D0D0D; -webkit-box-shadow: inset 0 1px 1px 0 #e90226; box-shadow: inset 0 1px 1px 0 #e90226; }
+    .submit-btn:hover { background: #C3001D; background: -moz-linear-gradient(top, #C3001D 0%, #950119 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0,#f8f8f8), color-stop(100%,#dddddd)); background: -webkit-linear-gradient(top, #C3001D 0%,#950119 100%); background: -o-linear-gradient(top, #C3001D 0%,#950119 100%); background: -ms-linear-gradient(top, #C3001D 0%,#950119 100%); background: linear-gradient(top, #C3001D 0,#950119 100%); }
+
+
 /* Modal Box Overlay */
 .modal-context { width: 100%; height: 100%; overflow: auto; position: fixed; top: 0; left: 0; background-color: #361919; background-color: rgba(54, 25, 25, 0.2); }
 .modal-on body { overflow: hidden; }
@@ -20,4 +38,4 @@ blockquote { border-left: 4px solid #DDD; padding: 0 15px; color: #777; margin: 
     .modal-close:after { content: "X"; }
     .modal-close:hover { background: #e1e1e1; color: #000; }
 .modal-title { font-weight: bold; font-size: 12px; padding: 0 5px; }
-.modal-content { padding: 10px; overflow: auto; margin: 40px 0 0 0; }
+.modal-content { padding: 10px; overflow: auto; margin: 10px 0 0 0; }

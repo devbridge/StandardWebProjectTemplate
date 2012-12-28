@@ -9,7 +9,7 @@
         <header class="header">
             <div class="container">
                 <div id="logindisplay">
-                    @Html.Action(MVC.Presentation.LoginStatus())
+                    @Html.Action(MVC.Account.LoginStatus())
                 </div>
             </div>
         </header>
@@ -18,11 +18,6 @@
                 <div id="title">
                     <h1>DevBridge Sample Web Project Template</h1>
                 </div>
-                <nav>
-                    <ul id="menu">
-                        <li><a href="@Url.Action(MVC.Home.Index())">Home</a></li>
-                    </ul>
-                </nav>
             </header>
             <section id="main">
                 @RenderBody()

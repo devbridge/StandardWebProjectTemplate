@@ -1,0 +1,19 @@
+﻿@model DevBridge.Templates.WebProject.Web.Logic.Models.Account.LoginViewModel
+
+<form action="@Url.Action(MVC.Account.Login())" class="login-form f-ajax" method="POST">
+    <div>
+        @Html.TextBoxFor(m => m.UserName, new { placeholder = "Email", @class = "textbox" })
+    </div>
+    <div>
+        @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "textbox" })
+    </div>
+    <div class="f-ajax-errors">
+        
+    </div>
+    <div class="f-ajax-hide">
+        <input type="submit" value="Log In" class="submit-btn"/>
+    </div>
+    <div class="f-ajax-show">
+        Logging in...
+    </div>
+</form>
