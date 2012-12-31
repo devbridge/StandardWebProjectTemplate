@@ -71,6 +71,7 @@
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
     <Compile Include="Exceptions\DataException.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
+    <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWorkRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="ISessionFactoryProvider.cs" />

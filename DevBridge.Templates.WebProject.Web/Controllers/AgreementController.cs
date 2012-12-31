@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using DevBridge.Templates.WebProject.ServiceContracts;
 using DevBridge.Templates.WebProject.Tools;
+using DevBridge.Templates.WebProject.Web.Helpers;
 using DevBridge.Templates.WebProject.Web.Logic.Commands.Agreement.CreateAgreement;
 using DevBridge.Templates.WebProject.Web.Logic.Commands.Agreement.GetAgreements;
 using Microsoft.Practices.Unity;
@@ -15,7 +16,7 @@ namespace DevBridge.Templates.WebProject.Web.Controllers
 
         public virtual ActionResult List(GetAgreementsFilter filter)
         {
-            var model = GetCommand<GetAgreementsCommand>().Execute(filter);            
+            var model = GetCommand<GetAgreementsCommand>().ExecuteCommand(filter);            
             return View(model);
         }        
 
