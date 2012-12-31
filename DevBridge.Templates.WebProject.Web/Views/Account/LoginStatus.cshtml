@@ -1,0 +1,14 @@
+﻿@using DevBridge.Templates.WebProject.Web.Logic.Models.Account
+@model LoginStatusViewModel
+
+@if (Model.IsUserAuthenticated)
+{
+    <div>Welcome, @Model.DisplayName</div>
+}
+else
+{
+    <div><a href="#login-template" class="modal" data-modal="{ width: 400, focus: true }">Log In</a></div>
+    <script type="text/html" id="login-template">
+        @Html.Partial("LoginForm", new LoginViewModel())
+    </script>
+}

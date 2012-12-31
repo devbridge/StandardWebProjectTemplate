@@ -5,7 +5,6 @@ using System.Web.Routing;
 using BetterCms.Core.Mvc.Commands;
 
 using Common.Logging;
-using DevBridge.Templates.WebProject.Data;
 using DevBridge.Templates.WebProject.Data.DataContext;
 using DevBridge.Templates.WebProject.DataContracts;
 using DevBridge.Templates.WebProject.ServiceContracts;
@@ -20,7 +19,7 @@ namespace DevBridge.Templates.WebProject.Web
 {
     public class WebApplication : System.Web.HttpApplication
     {
-        private static readonly ILog log = LogManager.GetCurrentClassLogger();
+        private static readonly ILog Log = LogManager.GetCurrentClassLogger();
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
@@ -49,11 +48,11 @@ namespace DevBridge.Templates.WebProject.Web
                 RegisterGlobalFilters(GlobalFilters.Filters);
                 RegisterRoutes(RouteTable.Routes);
                 
-                log.Info("Site started...");
+                Log.Info("Site started...");
             }
             catch (Exception ex)
             {
-                log.Fatal("Failed to start site.", ex);
+                Log.Fatal("Failed to start site.", ex);
                 throw;
             }
         }
@@ -61,12 +60,12 @@ namespace DevBridge.Templates.WebProject.Web
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
-            log.Fatal("Unhandled exception occurred.", ex);
+            Log.Fatal("Unhandled exception occurred.", ex);
         }
 
         protected void Application_End(object sender, EventArgs e)
         {
-            log.Info("Site stopped...");
+            Log.Info("Site stopped...");
         }
 
         private static void InitializeDependencyInjectionContainer()
