@@ -45,7 +45,7 @@ namespace DevBridge.Templates.WebProject.Tests.TestHelpers
                                 ProvideRandomNumber(0, 23), ProvideRandomNumber(0, 59), ProvideRandomNumber(0, 59));
         }
 
-        public Customer CreateNewRandomCustomer()
+        public Customer CreateCustomer()
         {
             return new Customer
                        {
@@ -56,11 +56,11 @@ namespace DevBridge.Templates.WebProject.Tests.TestHelpers
                        };
         }
 
-        public Agreement CreateNewRandomAgreementForCustomer(Customer customer)
+        public Agreement CreateAgreement(Customer customer = null)
         {
             return new Agreement
                        {
-                           Customer = customer,
+                           Customer = customer ?? CreateCustomer(),
                            Number = ProvideRandomString(20),
                            CreatedOn = ProvideRandomDateTime()
                        };

@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
+
+using Autofac;
+using Autofac.Integration.Mvc;
 
 using BetterCms.Core.Mvc.Commands;
 
@@ -10,10 +15,11 @@ using DevBridge.Templates.WebProject.DataContracts;
 using DevBridge.Templates.WebProject.ServiceContracts;
 using DevBridge.Templates.WebProject.Services;
 using DevBridge.Templates.WebProject.Tools.Commands;
+using DevBridge.Templates.WebProject.Web.Logic;
+using DevBridge.Templates.WebProject.Web.Logic.Commands.Agreement.GetAgreements;
 
 using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using Unity.Mvc3;
+
 
 namespace DevBridge.Templates.WebProject.Web
 {
@@ -35,14 +41,14 @@ namespace DevBridge.Templates.WebProject.Web
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
-
         }
 
         protected void Application_Start()
         {
             try
             {
-                InitializeDependencyInjectionContainer();
+                var container = new ContainerFactory().CreateContainer(typeof(WebApplication).Assembly);
+                DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
                 AreaRegistration.RegisterAllAreas();
                 RegisterGlobalFilters(GlobalFilters.Filters);
@@ -68,23 +74,6 @@ namespace DevBridge.Templates.WebProject.Web
             Log.Info("Site stopped...");
         }
 
-        private static void InitializeDependencyInjectionContainer()
-        {
-            var container =
-                new UnityContainer().RegisterType<IUnitOfWork, UnitOfWork>(new HierarchicalLifetimeManager())
-                                    .RegisterType<ISessionFactoryProvider, SessionFactoryProvider>(new ContainerControlledLifetimeManager())
-                                    .RegisterType<IUnitOfWorkFactory, UnitOfWorkFactory>(new ContainerControlledLifetimeManager())
-                                    .RegisterType<IAgreementManagementService, AgreementManagementService>(new HierarchicalLifetimeManager())
-                                    .RegisterType<IRegistrationService, RegistrationService>(new HierarchicalLifetimeManager())
-                                    .RegisterType<IDataListingService, DataListingService>(new HierarchicalLifetimeManager())
-                                    .RegisterType<ICachingService, CachingService>(new ContainerControlledLifetimeManager())
-                                    .RegisterType<IConfigurationLoaderService, ConfigurationLoaderService>(new ContainerControlledLifetimeManager())
-                                    .RegisterType<ICommandResolver, DefaultCommandResolver>(new HierarchicalLifetimeManager());
-
-            var serviceLocator = new UnityServiceLocator(container);
-
-            ServiceLocator.SetLocatorProvider(() => serviceLocator);
-            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-        }
+        
     }
 }

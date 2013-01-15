@@ -1,8 +1,4 @@
-﻿using DevBridge.Templates.WebProject.DataContracts;
-
-using Microsoft.Practices.Unity;
-
-namespace DevBridge.Templates.WebProject.Tools.Commands
+﻿namespace DevBridge.Templates.WebProject.Tools.Commands
 {
     public abstract class CommandBase : ICommandBase
     {
@@ -13,14 +9,5 @@ namespace DevBridge.Templates.WebProject.Tools.Commands
         /// A command executing context.
         /// </value>
         public ICommandContext Context { get; set; }
-
-        /// <summary>
-        /// Gets or sets the unit of work. This property is auto wired.
-        /// </summary>
-        /// <value>
-        /// The unit of work.
-        /// </value>
-        [Dependency]
-        public virtual IUnitOfWork UnitOfWork { get; set; }
     }
 }

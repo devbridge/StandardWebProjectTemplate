@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,9 +33,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc3.2.6.3.862\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +58,7 @@
     <Compile Include="Commands\Agreement\CreateAgreement\CreateAgreementCommand.cs" />
     <Compile Include="Commands\Agreement\GetAgreements\GetAgreementsCommand.cs" />
     <Compile Include="Commands\Agreement\GetAgreements\GetAgreementsFilter.cs" />
+    <Compile Include="ContainerFactory.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Agreement\AgreementItemViewModel.cs" />
     <Compile Include="Models\Agreement\AgreementListViewModel.cs" />
@@ -52,14 +66,39 @@
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\LoginStatusViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebPrincipalAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DevBridge.Templates.WebProject.DataContracts\DevBridge.Templates.WebProject.DataContracts.csproj">
+      <Project>{0A9661C0-67DD-43C7-99EF-337CE3BFD124}</Project>
+      <Name>DevBridge.Templates.WebProject.DataContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevBridge.Templates.WebProject.DataEntities\DevBridge.Templates.WebProject.DataEntities.csproj">
+      <Project>{44eb262a-2060-4906-b5b1-722f9bb1775b}</Project>
+      <Name>DevBridge.Templates.WebProject.DataEntities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevBridge.Templates.WebProject.Data\DevBridge.Templates.WebProject.Data.csproj">
+      <Project>{2C22D2A2-40E5-4475-9DC9-48B6B0D0D2EF}</Project>
+      <Name>DevBridge.Templates.WebProject.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevBridge.Templates.WebProject.ServiceContracts\DevBridge.Templates.WebProject.ServiceContracts.csproj">
+      <Project>{0f01c633-d2bc-4de5-951d-66d4b4af082c}</Project>
+      <Name>DevBridge.Templates.WebProject.ServiceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevBridge.Templates.WebProject.Services\DevBridge.Templates.WebProject.Services.csproj">
+      <Project>{54395C2E-F793-4BAB-B21E-FD43B374DB49}</Project>
+      <Name>DevBridge.Templates.WebProject.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DevBridge.Templates.WebProject.Tools\DevBridge.Templates.WebProject.Tools.csproj">
       <Project>{8FC6C0E9-A2EA-47E0-8611-C74BC615BF75}</Project>
       <Name>DevBridge.Templates.WebProject.Tools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

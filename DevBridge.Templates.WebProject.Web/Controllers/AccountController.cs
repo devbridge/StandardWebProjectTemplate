@@ -21,12 +21,14 @@ namespace DevBridge.Templates.WebProject.Web.Controllers
             // Simulate slow connection:
             Thread.Sleep(1000);
 
-            return Json(new
-            {
-                success = false,
-                redirectUrl = Url.Action(MVC.Home.Index()),
-                message = "Login is not implemented."
-            });
+            return Json(
+                new
+                    {
+                        success = false,
+                        redirectUrl = Url.Action(MVC.Home.Index()),
+                        message = "Login is not implemented."
+                    },
+                JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -9,23 +9,13 @@ using NUnit.Framework;
 namespace DevBridge.Templates.WebProject.Tests.DataEntityMappings
 {
     [TestFixture]
-    public class CustomerMapTest
+    public class CustomerMapTest : DatabaseTestBase<int>
     {
         [Test]
         public void Should_Check_Customer_Mappings_Successfully()
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
-            {
-                unitOfWork.BeginTransaction();
-
-                new PersistenceSpecification<Customer>(unitOfWork.Session)
-                    .CheckProperty(f => f.Name, Singleton.TestDataProvider.ProvideRandomString(50))
-                    .CheckProperty(f => f.Code, Singleton.TestDataProvider.ProvideRandomString(10))
-                    .CheckProperty(f => f.Type, CustomerType.NeedBasedCustomers)
-                    .CheckProperty(f => f.DeletedOn, null)
-                    .CheckProperty(f => f.CreatedOn, Singleton.TestDataProvider.ProvideRandomDateTime())
-                    .VerifyTheMappings();
-            }
+            var entity = TestDataProvider.CreateCustomer();
+            RunEntityMapTestsInTransaction(entity);
         }
     }
 }

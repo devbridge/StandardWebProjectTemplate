@@ -12,7 +12,7 @@ namespace DevBridge.Templates.WebProject.DataContracts.Exceptions
         {
         }
 
-        public EntityNotFoundException(Type entityType, int id)
+        public EntityNotFoundException(Type entityType, object id)
             : base(string.Format("{0} entity not found by id={1}.", entityType.Name, id))
         {
         }

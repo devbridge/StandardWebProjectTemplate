@@ -50,6 +50,11 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
         public System.Web.Mvc.ActionResult Create() {
             return new T4MVC_ActionResult(Area, Name, ActionNames.Create);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public System.Web.Mvc.JsonResult WireJson() {
+            return new T4MVC_JsonResult(Area, Name, ActionNames.WireJson);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public AgreementController Actions { get { return MVC.Agreement; } }
@@ -67,12 +72,14 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
         public class ActionNamesClass {
             public readonly string List = "List";
             public readonly string Create = "Create";
+            public readonly string WireJson = "WireJson";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants {
             public const string List = "List";
             public const string Create = "Create";
+            public const string WireJson = "WireJson";
         }
 
 
@@ -89,6 +96,15 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Create {
             public readonly string createAgreement = "createAgreement";
+        }
+        static readonly ActionParamsClass_WireJson s_params_WireJson = new ActionParamsClass_WireJson();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_WireJson WireJsonParams { get { return s_params_WireJson; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_WireJson {
+            public readonly string data = "data";
+            public readonly string behavior = "behavior";
+            public readonly string success = "success";
         }
         static readonly ViewNames s_views = new ViewNames();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -116,9 +132,24 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Create(DevBridge.Templates.WebProject.Web.Logic.Commands.Agreement.CreateAgreement.CreateAgreementCommand createAgreement) {
+        public override System.Web.Mvc.ActionResult Create(DevBridge.Templates.WebProject.Web.Logic.Models.Agreement.CreateAgreementViewModel createAgreement) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Create);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "createAgreement", createAgreement);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.JsonResult WireJson(DevBridge.Templates.WebProject.Tools.Mvc.WireJson data, System.Web.Mvc.JsonRequestBehavior behavior) {
+            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.WireJson);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "data", data);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "behavior", behavior);
+            return callInfo;
+        }
+
+        public override System.Web.Mvc.JsonResult WireJson(bool success, dynamic data, System.Web.Mvc.JsonRequestBehavior behavior) {
+            var callInfo = new T4MVC_JsonResult(Area, Name, ActionNames.WireJson);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "success", success);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "data", data);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "behavior", behavior);
             return callInfo;
         }
 

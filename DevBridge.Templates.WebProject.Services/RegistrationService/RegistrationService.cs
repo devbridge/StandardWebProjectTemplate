@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.Transactions;
+
 using DevBridge.Templates.WebProject.DataContracts;
 using DevBridge.Templates.WebProject.DataEntities.Entities;
 using DevBridge.Templates.WebProject.DataEntities.Enums;
@@ -12,12 +13,13 @@ namespace DevBridge.Templates.WebProject.Services
     public class RegistrationService : IRegistrationService
     {
         private readonly IAgreementManagementService agreementManagementService;
-        private readonly IUnitOfWork unitOfWork;
 
-        public RegistrationService(IUnitOfWork unitOfWork, IAgreementManagementService agreementManagementService)
+        private readonly IRepository repository;
+
+        public RegistrationService(IRepository repository, IAgreementManagementService agreementManagementService)
         {
+            this.repository = repository;
             this.agreementManagementService = agreementManagementService;
-            this.unitOfWork = unitOfWork;
         }
 
         public void RegisterCustomer(string name)
@@ -28,19 +30,26 @@ namespace DevBridge.Templates.WebProject.Services
         public void RegisterCustomer(string name, CustomerType customerType)
         {            
             try
-            {                                
-                Customer customer = new Customer();
-                customer.Name = name;
-                customer.Type  = customerType;
-                customer.CreatedOn = DateTime.Now;
-                customer.Agreements.Add(new Agreement
-                                            {
-                                                Number = agreementManagementService.GenerateAgreementNumber(),
-                                                CreatedOn =  DateTime.Now,
-                                                Customer = customer
-                                            });
-                unitOfWork.Session.Save(customer);
-                unitOfWork.Commit();
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    Customer customer = new Customer();
+                    customer.Name = name;
+                    customer.Type = customerType;
+
+                    customer.Agreements.Add(
+                        new Agreement
+                            {
+                                Number = agreementManagementService.GenerateAgreementNumber(),
+                                CreatedOn = DateTime.Now,
+                                Customer = customer
+                            });
+
+                    repository.Save(customer);
+                    repository.Commit();
+
+                    transaction.Complete();
+                }
             }
             catch (Exception ex)
             {                
@@ -52,9 +61,8 @@ namespace DevBridge.Templates.WebProject.Services
         {
             try
             {
-                var customer = unitOfWork.Session.Load<Customer>(id, LockMode.None);
-                unitOfWork.Session.Delete(customer);
-                unitOfWork.Commit();
+                repository.Delete<Customer>(id);
+                repository.Commit();
             }
             catch (Exception ex)
             {

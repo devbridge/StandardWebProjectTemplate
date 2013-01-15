@@ -8,25 +8,13 @@ using NUnit.Framework;
 namespace DevBridge.Templates.WebProject.Tests.DataEntityMappings
 {
     [TestFixture]
-    public class AgreementMapTest
+    public class AgreementMapTest : DatabaseTestBase<int>
     {
         [Test]
         public void Should_Check_Agreement_Mappings_Successfully()
         {
-            using (IUnitOfWork unitOfWork = new UnitOfWork(Singleton.SessionFactoryProvider))
-            {
-                unitOfWork.BeginTransaction();
-
-                Customer customer = Singleton.TestDataProvider.CreateNewRandomCustomer();
-                unitOfWork.Session.SaveOrUpdate(customer);
-
-                new PersistenceSpecification<Agreement>(unitOfWork.Session)
-                    .CheckProperty(f => f.Number, Singleton.TestDataProvider.ProvideRandomString(20))
-                    .CheckProperty(f => f.DeletedOn, null)
-                    .CheckProperty(f => f.CreatedOn, Singleton.TestDataProvider.ProvideRandomDateTime())
-                    .CheckReference(f => f.Customer, customer)
-                    .VerifyTheMappings();
-            }
+            var entity = TestDataProvider.CreateCustomer();
+            RunEntityMapTestsInTransaction(entity);            
         }   
     }
 }

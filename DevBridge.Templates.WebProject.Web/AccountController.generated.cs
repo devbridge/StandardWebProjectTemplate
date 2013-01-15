@@ -19,7 +19,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-using DevBridge.Templates.WebProject.Web.Logic.Models.Account;
 using T4MVC;
 namespace DevBridge.Templates.WebProject.Web.Controllers {
     public partial class AccountController {
@@ -98,7 +97,7 @@ namespace DevBridge.Templates.WebProject.Web.Controllers {
             return callInfo;
         }
 
-        public override System.Web.Mvc.ActionResult Login(LoginViewModel model) {
+        public override System.Web.Mvc.ActionResult Login(DevBridge.Templates.WebProject.Web.Logic.Models.Account.LoginViewModel model) {
             var callInfo = new T4MVC_ActionResult(Area, Name, ActionNames.Login);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             return callInfo;

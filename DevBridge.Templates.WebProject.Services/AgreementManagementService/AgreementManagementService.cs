@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
+
 using DevBridge.Templates.WebProject.DataContracts;
 using DevBridge.Templates.WebProject.DataEntities.Entities;
 using DevBridge.Templates.WebProject.ServiceContracts;
@@ -13,12 +15,12 @@ namespace DevBridge.Templates.WebProject.Services
     {
         private readonly AgreementManagementServiceConfiguration configuration;
 
-        private IUnitOfWork unitOfWork;
+        private IRepository repository;
 
-        public AgreementManagementService(IUnitOfWork unitOfWork,
+        public AgreementManagementService(IRepository repository,
                                           IConfigurationLoaderService configurationLoaderService)
         {
-            this.unitOfWork = unitOfWork;
+            this.repository = repository;
             configuration = configurationLoaderService.LoadConfig<AgreementManagementServiceConfiguration>();
         }
 
@@ -39,16 +41,15 @@ namespace DevBridge.Templates.WebProject.Services
         {
             try
             {
-                try
+                using (var transaction = new TransactionScope())
                 {
-                    unitOfWork.BeginTransaction();
+                    Customer customer = repository.First<Customer>(customerId);
 
-                    Customer customer = unitOfWork.Session.Query<Customer>().FetchMany(f => f.Agreements).FirstOrDefault(f => f.Id == customerId && f.DeletedOn == null);
                     if (customer != null)
                     {
                         foreach (var agreement in customer.Agreements)
                         {
-                            unitOfWork.Session.Delete(agreement);
+                            repository.Delete(agreement);
                         }
                     }
 
@@ -57,15 +58,12 @@ namespace DevBridge.Templates.WebProject.Services
                     extendedAgreement.Number = GenerateAgreementNumber();
                     extendedAgreement.CreatedOn = DateTime.Now;
 
-                    unitOfWork.Session.SaveOrUpdate(extendedAgreement);
-                    unitOfWork.Commit();
+                    repository.Save(extendedAgreement);
+                    repository.Commit();
+
+                    transaction.Complete();
 
                     return extendedAgreement;
-                }
-                catch (Exception)
-                {
-                    unitOfWork.Rollback();
-                    throw;
                 }
             }
             catch (Exception ex)
@@ -78,7 +76,9 @@ namespace DevBridge.Templates.WebProject.Services
         {
             try
             {
-                return unitOfWork.Session.Query<Agreement>().Where(f => f.DeletedOn == null).ToList();
+                var query = repository.AsQueryOver<Agreement>().Where(f => f.DeletedOn == null).Future();
+                
+                return query.ToList();
             }
             catch (Exception ex)
             {                

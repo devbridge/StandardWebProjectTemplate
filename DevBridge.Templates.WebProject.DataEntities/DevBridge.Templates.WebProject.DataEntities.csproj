@@ -72,6 +72,7 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="Mappings\AgreementMap.cs" />
     <Compile Include="Mappings\CustomerMap.cs" />
+    <Compile Include="Mappings\EntityMapBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

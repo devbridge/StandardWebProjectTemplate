@@ -72,10 +72,8 @@
     <Compile Include="Exceptions\DataException.cs" />
     <Compile Include="Exceptions\KnownException.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="IUnitOfWorkRepository.cs" />
-    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IPrincipalAccessor.cs" />
     <Compile Include="ISessionFactoryProvider.cs" />
-    <Compile Include="IUnitOfWorkFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
