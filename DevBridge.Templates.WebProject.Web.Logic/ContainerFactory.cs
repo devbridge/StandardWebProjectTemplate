@@ -26,7 +26,7 @@ namespace DevBridge.Templates.WebProject.Web.Logic
             {
                 foreach (var webAssembly in webAssemblies)
                 {
-                    builder.RegisterControllers(webAssembly).InstancePerHttpRequest().PropertiesAutowired();
+                    builder.RegisterControllers(webAssembly).InstancePerDependency().PropertiesAutowired();
                 }
             }
 
@@ -77,6 +77,11 @@ namespace DevBridge.Templates.WebProject.Web.Logic
         /// </returns>
         private bool IsAssignableToGenericType(Type givenType, Type genericType)
         {
+            if (genericType.IsAssignableFrom(givenType))
+            {
+                return true;
+            }
+
             var interfaceTypes = givenType.GetInterfaces();
 
             foreach (var it in interfaceTypes)
