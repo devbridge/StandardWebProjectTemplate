@@ -56,13 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Agreement\CreateAgreement\CreateAgreementCommand.cs" />
+    <Compile Include="Commands\Agreement\CreateAgreement\CreateAgreementViewModel.cs" />
+    <Compile Include="Commands\Agreement\GetAgreements\AgreementItemViewModel.cs" />
+    <Compile Include="Commands\Agreement\GetAgreements\AgreementListViewModel.cs" />
     <Compile Include="Commands\Agreement\GetAgreements\GetAgreementsCommand.cs" />
     <Compile Include="Commands\Agreement\GetAgreements\GetAgreementsFilter.cs" />
     <Compile Include="ContainerFactory.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Agreement\AgreementItemViewModel.cs" />
-    <Compile Include="Models\Agreement\AgreementListViewModel.cs" />
-    <Compile Include="Models\Agreement\CreateAgreementViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
     <Compile Include="Models\Account\LoginStatusViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Agreement\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
