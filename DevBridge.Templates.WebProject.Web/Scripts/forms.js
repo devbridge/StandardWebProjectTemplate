@@ -39,6 +39,7 @@ define(['jquery'], function ($) {
         $.ajax({
             url: form.attr('action'),
             type: 'POST',
+            data: form.serialize(),
             dataType: 'json'
         }).done(function (data) {
             if (data.success) {
@@ -53,6 +54,11 @@ define(['jquery'], function ($) {
 
             form.data(status, null);
             form.removeClass(options.classWhileSubmitting);
+        }).fail(function (xhr) {
+            form.data(status, null);
+            form.removeClass(options.classWhileSubmitting);
+            errors.html('Failed to get response from the server.').fadeIn();
+            console.log('Failed: ', xhr);
         });
 
         return true;
