@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using DevBridge.Templates.WebProject.DataEntities.Enums;
 
 namespace DevBridge.Templates.WebProject.DataEntities.Entities
 {
-    public class Customer : EntityBase<Customer>
+    public class Customer : PersistentEntityBase<Customer>
     {
         public virtual string Name { get; set; }
         public virtual string Code { get; set; }

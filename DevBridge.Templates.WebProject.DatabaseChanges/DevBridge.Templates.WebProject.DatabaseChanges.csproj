@@ -61,6 +61,8 @@
     <Content Include="Update\00000_CreateDatabase.sql" />
     <Content Include="Update\00001_AddAgreementColumns.sql" />
     <Content Include="Update\00002_AddCustomerColumns.sql" />
+    <Content Include="Update\00003_AddMultipartUploadTable.sql" />
+    <Content Include="Update\00004_AddPartResponsesTable.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />

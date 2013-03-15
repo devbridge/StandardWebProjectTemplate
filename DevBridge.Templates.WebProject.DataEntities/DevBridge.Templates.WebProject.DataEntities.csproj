@@ -67,12 +67,18 @@
     <Compile Include="Dto\AgreementInformation.cs" />
     <Compile Include="Entities\Agreement.cs" />
     <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\MultipartUpload.cs" />
+    <Compile Include="Entities\PartResponse.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Enums\CustomerType.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="Mappings\AgreementMap.cs" />
     <Compile Include="Mappings\CustomerMap.cs" />
     <Compile Include="Mappings\EntityMapBase.cs" />
+    <Compile Include="Mappings\MultipartUploadMap.cs" />
+    <Compile Include="Mappings\PartResponseMap.cs" />
+    <Compile Include="Mappings\PersistentEntityMapBase.cs" />
+    <Compile Include="PersistentEntityBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

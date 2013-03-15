@@ -1,9 +1,8 @@
 ﻿using DevBridge.Templates.WebProject.DataEntities.Entities;
-using FluentNHibernate.Mapping;
 
 namespace DevBridge.Templates.WebProject.DataEntities.Mappings
 {
-    public sealed class AgreementMap : EntityMapBase<Agreement>
+    public sealed class AgreementMap : PersistentEntityMapBase<Agreement>
     {
         public AgreementMap()
         {            

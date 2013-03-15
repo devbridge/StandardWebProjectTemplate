@@ -11,19 +11,9 @@ using NHibernate.Linq;
 
 namespace DevBridge.Templates.WebProject.Data
 {
-    public abstract class GenericRepositoryBase<TId> : IGenericRepository<TId>, IDisposable 
-        where TId : struct
-
+    public abstract class GenericRepositoryBase<TId> : IGenericRepository<TId>, IDisposable where TId : struct
     {
         private readonly ISession session;
-
-        public ISession Session
-        {
-            get
-            {
-                return session;
-            }
-        }
 
         public GenericRepositoryBase(ISessionFactoryProvider sessionFactoryProvider)
         {
@@ -35,9 +25,16 @@ namespace DevBridge.Templates.WebProject.Data
             this.session = session;
         }
 
+        public ISession Session
+        {
+            get
+            {
+                return session;
+            }
+        }
+
         public void Dispose()
         {
-
             session.Close();
             session.Dispose();
         }
@@ -47,8 +44,13 @@ namespace DevBridge.Templates.WebProject.Data
             session.Flush();
         }
 
-        public IQueryOver<TEntity, TEntity> AsQueryOver<TEntity>() where TEntity : class, IEntity<TId>
+        public IQueryOver<TEntity, TEntity> AsQueryOver<TEntity>(Expression<Func<TEntity>> alias = null) where TEntity : class, IEntity<TId>
         {
+            if (alias != null)
+            {
+                return session.QueryOver(alias);
+            }
+
             return session.QueryOver<TEntity>();
         }
 
@@ -84,9 +86,13 @@ namespace DevBridge.Templates.WebProject.Data
         public virtual TEntity FirstOrDefault<TEntity>(TId id) where TEntity : class, IEntity<TId>
         {
             var entity = session.Get<TEntity>(id);
-            if (entity != null && entity.DeletedOn != null)
+
+            if (entity != null)
             {
-                return null;
+                if (entity is IPersistentEntity && ((IPersistentEntity)entity).DeletedOn != null)
+                {
+                    return null;
+                }
             }
 
             return entity;
@@ -104,7 +110,12 @@ namespace DevBridge.Templates.WebProject.Data
 
         public virtual IQueryable<TEntity> AsQueryable<TEntity>() where TEntity : class, IEntity<TId>
         {
-            return session.Query<TEntity>().Where(f => f.DeletedOn == null);
+            if (typeof(IPersistentEntity).IsAssignableFrom(typeof(TEntity)))
+            {
+                return session.Query<TEntity>().Where(f => ((IPersistentEntity)f).DeletedOn == null);
+            }
+
+            return session.Query<TEntity>();
         }
 
         public virtual bool Any<TEntity>(Expression<Func<TEntity, bool>> filter) where TEntity : class, IEntity<TId>

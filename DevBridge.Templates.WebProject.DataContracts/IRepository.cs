@@ -9,19 +9,15 @@ using NHibernate;
 namespace DevBridge.Templates.WebProject.DataContracts
 {
     public interface IRepository : IGenericRepository<int>
-    {        
+    {
     }
 
-
-    /// <summary>
-    /// </summary>
-    public interface IGenericRepository<TId>        
-        where TId : struct 
+    public interface IGenericRepository<TId> where TId : struct
     {
         void Commit();
 
-        IQueryOver<TEntity, TEntity> AsQueryOver<TEntity>() where TEntity : class, IEntity<TId>;
-        
+        IQueryOver<TEntity, TEntity> AsQueryOver<TEntity>(Expression<Func<TEntity>> alias = null) where TEntity : class, IEntity<TId>;
+
         TEntity AsProxy<TEntity>(TId id) where TEntity : class, IEntity<TId>;
 
         TEntity First<TEntity>(TId id) where TEntity : class, IEntity<TId>;
@@ -48,6 +44,6 @@ namespace DevBridge.Templates.WebProject.DataContracts
 
         void Detach<TEntity>(TEntity entity) where TEntity : class, IEntity<TId>;
 
-        void Refresh<TEntity>(TEntity entity) where TEntity : class, IEntity<TId>;    
+        void Refresh<TEntity>(TEntity entity) where TEntity : class, IEntity<TId>;
     }
 }

@@ -101,6 +101,7 @@
     <Compile Include="DataEntityMappings\AgreementMapTest.cs" />
     <Compile Include="DataEntityMappings\CustomerMapTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryTests\EntityQueringTest.cs" />
     <Compile Include="Services\AgreementManagementServiceTest.cs" />
     <Compile Include="Services\RegistrationServiceTest.cs" />
     <Compile Include="TestBase.cs" />

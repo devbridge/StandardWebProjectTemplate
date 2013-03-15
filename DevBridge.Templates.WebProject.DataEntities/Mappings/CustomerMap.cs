@@ -2,7 +2,7 @@
 
 namespace DevBridge.Templates.WebProject.DataEntities.Mappings
 {
-    public sealed class CustomerMap :  EntityMapBase<Customer>
+    public sealed class CustomerMap :  PersistentEntityMapBase<Customer>
     {
         public CustomerMap()
         {

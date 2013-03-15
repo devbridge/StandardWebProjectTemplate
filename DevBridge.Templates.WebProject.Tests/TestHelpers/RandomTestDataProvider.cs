@@ -65,5 +65,29 @@ namespace DevBridge.Templates.WebProject.Tests.TestHelpers
                            CreatedOn = ProvideRandomDateTime()
                        };
         }
+
+        public MultipartUpload CreateMultipartUpload()
+        {
+            return new MultipartUpload
+            {
+                BucketName = ProvideRandomString(500),
+                ContentLength = 500,
+                DocumentId = 5,
+                DocumentType = 5,
+                Hash = ProvideRandomString(250),
+                KeyName = ProvideRandomString(500),
+                UploadId = ProvideRandomString(500)
+            };
+        }
+
+        public PartResponse CreatePartResponse()
+        {
+            return new PartResponse
+            {
+                ETag = ProvideRandomString(250),
+                MultipartUpload = CreateMultipartUpload(),
+                PartNumber = 5
+            };
+        }
     }
 }

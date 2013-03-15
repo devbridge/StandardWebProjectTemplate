@@ -1,6 +1,6 @@
 ﻿namespace DevBridge.Templates.WebProject.DataEntities.Entities
 {
-    public class Agreement : EntityBase<Agreement>
+    public class Agreement : PersistentEntityBase<Agreement>
     {
         public virtual string Number { get; set; }
         public virtual Customer Customer { get; set; }
