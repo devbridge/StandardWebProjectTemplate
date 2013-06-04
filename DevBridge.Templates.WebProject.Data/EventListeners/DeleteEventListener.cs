@@ -44,7 +44,7 @@ namespace DevBridge.Templates.WebProject.Data.EventListeners
         protected override void DeleteEntity(IEventSource session, object entity, EntityEntry entityEntry, 
             bool isCascadeDeleteEnabled, IEntityPersister persister, ISet transientEntities)
         {
-            if (entity is IEntity)
+            if (entity is IPersistentEntity)
             {
                 eventListenerHelper.OnDelete(entity);
 
